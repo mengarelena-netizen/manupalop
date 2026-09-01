@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prensa y colaboraciones | Manu Palop</title>
+<meta name="description" content="Formulario de contacto solo para prensa, podcasts y colaboraciones.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css?v=1788090006">
+</head>
+<body>
+
+<!-- ===================== HEADER / NAV ===================== -->
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">MANU <span>PALOP</span></a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="index.html#ruge">Club VIP RUGE</a>
+      <a href="index.html#testimonios">Testimonios</a>
+      <a href="diario.html">Diario</a>
+      <a href="libro.html">Mi libro</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+
+    <a href="index.html#ruge" class="btn btn-accent nav-cta">Únete a RUGE</a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===================== CONTACTO ===================== -->
+<section class="section" id="contacto">
+  <div class="container contacto-grid">
+    <div>
+      <h2 class="section-title">Prensa y colaboraciones</h2>
+      <p class="section-lead">
+        Este formulario es solo para medios de comunicación, podcasts y propuestas de colaboración.
+      </p>
+    </div>
+
+    <form class="contact-form" id="contactForm">
+      <!-- Web3Forms entrega el mensaje en hola@manupalop.com. La clave llega por
+           email al crear el formulario en https://web3forms.com con esa direccion. -->
+      <input type="hidden" name="access_key" value="TU_ACCESS_KEY_DE_WEB3FORMS">
+      <input type="hidden" name="subject" value="Prensa y colaboraciones - manupalop.com">
+      <input type="hidden" name="from_name" value="Web Manu Palop">
+      <!-- Trampa antispam: los bots la rellenan, las personas no la ven -->
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true">
+
+      <label>
+        Nombre
+        <input type="text" name="nombre" required>
+      </label>
+      <label>
+        Email
+        <input type="email" name="email" required>
+      </label>
+      <label>
+        Mensaje
+        <textarea name="mensaje" rows="4" required></textarea>
+      </label>
+      <button type="submit" class="btn btn-accent">Enviar mensaje</button>
+      <p class="form-note" id="contactNote" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div class="container">
+    <div class="contacto-ruge-banner">
+      <p class="section-lead">¿Quieres perder peso conmigo? Únete directamente al Club VIP RUGE.</p>
+      <a href="index.html#ruge" class="btn btn-accent contacto-ruge-cta">Más información</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> Manu Palop</p>
+    <div class="footer-links">
+      <a href="diario.html">Diario</a>
+      <a href="libro.html">Mi libro</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="#">Menciones legales</a>
+      <a href="politica-de-privacidad.html">Política de privacidad</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js?v=1788090007"></script>
+</body>
+</html>
