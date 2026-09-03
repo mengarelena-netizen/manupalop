@@ -6,11 +6,42 @@ import { useCallback, useEffect, useRef, useState } from "react";
    YouTube. Al reproducir se usa controls=0 y controles propios, para que no
    aparezca el marco de YouTube (titulo, barra inferior, sello "Shorts"). */
 
-type YTNamespace = typeof window & { YT?: any; onYouTubeIframeAPIReady?: () => void };
+/* La API de YouTube no trae tipos; declaramos solo lo que usamos. */
+interface YTPlayer {
+  playVideo(): void;
+  pauseVideo(): void;
+  getPlayerState(): number;
+  destroy?(): void;
+}
+interface YTPlayerEvent {
+  target: YTPlayer;
+  data: number;
+}
+interface YTApi {
+  Player: new (
+    el: HTMLElement,
+    opts: {
+      videoId: string;
+      host?: string;
+      width?: string | number;
+      height?: string | number;
+      playerVars?: Record<string, number>;
+      events?: {
+        onReady?: (e: YTPlayerEvent) => void;
+        onStateChange?: (e: YTPlayerEvent) => void;
+      };
+    }
+  ) => YTPlayer;
+  PlayerState: { PLAYING: number; PAUSED: number; ENDED: number };
+}
+type YTNamespace = typeof window & {
+  YT?: YTApi;
+  onYouTubeIframeAPIReady?: () => void;
+};
 
-let ytApi: Promise<any> | null = null;
+let ytApi: Promise<YTApi> | null = null;
 
-function loadYouTubeApi(): Promise<any> {
+function loadYouTubeApi(): Promise<YTApi> {
   if (ytApi) return ytApi;
   ytApi = new Promise((resolve, reject) => {
     const w = window as YTNamespace;
@@ -18,7 +49,7 @@ function loadYouTubeApi(): Promise<any> {
     const previous = w.onYouTubeIframeAPIReady;
     w.onYouTubeIframeAPIReady = () => {
       if (typeof previous === "function") previous();
-      resolve(w.YT);
+      resolve(w.YT as YTApi);
     };
     const script = document.createElement("script");
     script.src = "https://www.youtube.com/iframe_api";
@@ -47,7 +78,7 @@ export default function VideoFacade({
   const [ready, setReady] = useState(false);
   const [paused, setPaused] = useState(false);
   const stageRef = useRef<HTMLDivElement | null>(null);
-  const playerRef = useRef<any>(null);
+  const playerRef = useRef<YTPlayer | null>(null);
 
   const restore = useCallback(() => {
     // Al terminar volvemos a la miniatura, en vez de dejar la pantalla final
@@ -69,7 +100,7 @@ export default function VideoFacade({
 
     let cancelled = false;
     loadYouTubeApi()
-      .then((YT) => {
+      .then((YT: YTApi) => {
         if (cancelled) return;
         playerRef.current = new YT.Player(mount, {
           videoId,
@@ -89,14 +120,14 @@ export default function VideoFacade({
             iv_load_policy: 3,
           },
           events: {
-            onReady: (e: any) => {
+            onReady: (e: YTPlayerEvent) => {
               e.target.playVideo();
               setReady(true);
               // El reproductor mide su tamano al crearse; le pedimos que lo
               // recalcule ya montado en el marco vertical.
               window.dispatchEvent(new Event("resize"));
             },
-            onStateChange: (e: any) => {
+            onStateChange: (e: YTPlayerEvent) => {
               setPaused(e.data === YT.PlayerState.PAUSED);
               if (e.data === YT.PlayerState.ENDED) restore();
             },
@@ -166,6 +197,7 @@ export default function VideoFacade({
           const p = playerRef.current;
           if (!p) return;
           const YT = (window as YTNamespace).YT;
+          if (!YT) return;
           if (p.getPlayerState() === YT.PlayerState.PLAYING) p.pauseVideo();
           else p.playVideo();
         }}

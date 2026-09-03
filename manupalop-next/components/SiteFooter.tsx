@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+// El ano se calcula en el navegador, como antes. Con export estatico
+// calcularlo en el servidor lo dejaria congelado en la fecha del build.
+const noop = () => () => {};
+const currentYear = () => new Date().getFullYear();
+const noYear = () => null;
 
 export default function SiteFooter() {
-  // El ano se calcula en el navegador, como antes. Con export estatico
-  // calcularlo en el servidor lo dejaria congelado en la fecha del build.
-  const [year, setYear] = useState<number | null>(null);
-  useEffect(() => setYear(new Date().getFullYear()), []);
+  const year = useSyncExternalStore(noop, currentYear, noYear);
 
   return (
     <footer className="site-footer">

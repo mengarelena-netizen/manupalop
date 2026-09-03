@@ -10,7 +10,11 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        {/* Misma fuente y mismo orden de carga que el sitio original. */}
+        {/* Misma fuente y mismo orden de carga que el sitio original. Se usa
+            el <link> de Google Fonts en vez de next/font a proposito: next/font
+            sirve la fuente desde otro origen y con otro nombre de familia, y eso
+            cambiaria el renderizado respecto al sitio actual.
+            eslint-disable-next-line @next/next/no-page-custom-font */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

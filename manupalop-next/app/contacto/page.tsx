@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ContactForm from "@/components/ContactForm";
@@ -32,9 +33,9 @@ export default function Contacto() {
             <p className="section-lead">
               ¿Quieres perder peso conmigo? Únete directamente al Club VIP RUGE.
             </p>
-            <a href="/#ruge" className="btn btn-accent contacto-ruge-cta">
+            <Link href="/#ruge" className="btn btn-accent contacto-ruge-cta">
               Más información
-            </a>
+            </Link>
           </div>
         </div>
       </section>
