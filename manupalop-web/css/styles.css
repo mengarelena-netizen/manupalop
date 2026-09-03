@@ -306,6 +306,11 @@ a { color: inherit; text-decoration: none; }
 .price-tag span { font-size: 32px; color: var(--accent-dark); }
 
 /* ---------- Testimonios ---------- */
+/* Intro centrada en escritorio; en móvil se alinea a la izquierda como el resto. */
+#testimonios > .container > .section-title,
+#testimonios > .container > .section-lead { text-align: center; }
+#testimonios > .container > .section-lead { margin-left: auto; margin-right: auto; }
+
 /* El testimonio es un vídeo vertical (formato reel), así que el reproductor
    va en 9/16 sobre un panel para que no queden bandas grises a los lados. */
 .video-showcase {
@@ -831,9 +836,13 @@ a { color: inherit; text-decoration: none; }
   .diario-inner { align-items: flex-start; }
 
   /* Blocks centred with auto margins */
+  #testimonios > .container > .section-title,
+  #testimonios > .container > .section-lead { text-align: left; }
+
   .ruge-content-full .section-lead,
   .programa-content .section-lead,
   .contacto-ruge-banner .section-lead,
+  #testimonios > .container > .section-lead,
   .cta-final h2,
   .cta-final-sub,
   .check-list { margin-left: 0; margin-right: 0; }
