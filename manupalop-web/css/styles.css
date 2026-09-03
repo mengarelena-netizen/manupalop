@@ -586,23 +586,22 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--border);
 }
 
-.diario-form {
-  display: flex;
-  gap: 12px;
+.diario-embed {
   margin-top: 28px;
   width: 100%;
-  max-width: 440px;
-  flex-wrap: wrap;
-  justify-content: center;
+  max-width: 480px;
 }
-.diario-form input {
-  flex: 1;
-  min-width: 220px;
-  padding: 14px 18px;
-  border-radius: 999px;
-  border: none;
-  font-size: 15px;
-  font-family: var(--font);
+.diario-embed iframe {
+  display: block;
+  width: 100%;
+  height: 150px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+}
+/* En pantallas estrechas el texto del embed se parte en mas lineas */
+@media (max-width: 520px) {
+  .diario-embed iframe { height: 200px; }
 }
 
 /* ---------- Contacto ---------- */

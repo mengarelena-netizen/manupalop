@@ -177,18 +177,6 @@ document.addEventListener('DOMContentLoaded', () => {
     carousel.addEventListener('mouseleave', () => { timer = setInterval(next, intervalMs); });
   });
 
-  // Formulario de newsletter (Diario de un ex-Gordo)
-  // Programador: conectar con el proveedor real (Mailchimp, Brevo, etc.)
-  const newsletterForm = document.getElementById('newsletterForm');
-  const newsletterNote = document.getElementById('newsletterNote');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      newsletterNote.textContent = '¡Gracias! Revisa tu correo para confirmar la suscripción.';
-      newsletterForm.reset();
-    });
-  }
-
   // Formulario de contacto: lo recoge Netlify Forms y lo reenvia a la direccion
   // configurada en el panel de Netlify (Forms > notificaciones).
   const contactForm = document.getElementById('contactForm');
