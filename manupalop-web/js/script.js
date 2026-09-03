@@ -189,8 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Formulario de contacto: Web3Forms entrega el mensaje en hola@manupalop.com.
-  // La clave de acceso va en el campo oculto access_key de contacto.html.
+  // Formulario de contacto: lo recoge Netlify Forms y lo reenvia a la direccion
+  // configurada en el panel de Netlify (Forms > notificaciones).
   const contactForm = document.getElementById('contactForm');
   const contactNote = document.getElementById('contactNote');
   if (contactForm) {
@@ -207,14 +207,15 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.textContent = 'Enviando…';
       }
 
-      fetch('https://api.web3forms.com/submit', {
+      // Netlify acepta el POST en cualquier ruta del sitio mientras el cuerpo
+      // lleve form-name. Ojo: solo funciona en el sitio desplegado en Netlify.
+      fetch('/', {
         method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: new FormData(contactForm)
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(contactForm)).toString()
       })
-        .then(res => res.json().then(data => ({ ok: res.ok, data })))
-        .then(({ ok, data }) => {
-          if (!ok || !data.success) throw new Error(data.message || 'Error al enviar');
+        .then(res => {
+          if (!res.ok) throw new Error('Error al enviar');
           contactNote.className = 'form-note is-ok';
           contactNote.textContent = 'Mensaje enviado. Te responderé lo antes posible.';
           contactForm.reset();
