@@ -16,12 +16,12 @@ export default function Libro() {
       <section className="section" id="libro">
         <div className="container libro-grid">
           <div className="libro-content">
-            <h2 className="libro-title">
+            <h2 className="">
               Método TEMIS:
               <br />
               La antidieta
             </h2>
-            <p className="section-lead">
+            <p className="section-lead mb-10">
               Todo lo que aprendí perdiendo 60 kg, en un libro. No hay
               soluciones mágicas ni atajos: comparto la teoría que desmonta
               mitos, la práctica con pasos concretos y la mentalidad para romper

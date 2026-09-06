@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import VideoFacade from "@/components/VideoFacade";
-import PhotoCarousels from "@/components/PhotoCarousels";
+import PhotoCarousels, { PhotoGallery } from "@/components/PhotoCarousels";
 
 export const metadata: Metadata = {
   title: "Manu Palop | Club VIP",
@@ -11,6 +11,29 @@ export const metadata: Metadata = {
 };
 
 const STRIPE = "https://buy.stripe.com/5kQdRacXN0Bs2ST2on2ZO1c";
+
+const GALERIA = [
+  {
+    src: "/images/galary/galary1.jpg",
+    alt: "Manu Palop dirigiendo una sesión de respiración consciente",
+  },
+  {
+    src: "/images/galary/galary2.JPG",
+    alt: "Participante tumbada durante una sesión de respiración consciente",
+  },
+  {
+    src: "/images/galary/galary3.JPG",
+    alt: "Manu Palop acompañando a una participante en una sesión de respiración consciente",
+  },
+  {
+    src: "/images/galary/galary4.JPG",
+    alt: "Manu Palop guiando a los asistentes durante una sesión de respiración consciente",
+  },
+  {
+    src: "/images/galary/galary5.jpg",
+    alt: "Grupo completo en una sesión de respiración consciente",
+  },
+];
 
 const ANTES = [
   { src: "/images/antes-1.jpg", alt: "Manu Palop con 140 kg, en la playa" },
@@ -114,17 +137,17 @@ export default function Home() {
               Perdí 60 kg. <br />
               Ahora te enseño el camino.
             </h1>
-            <p className="hero-sub lg:text-xl">
+            <p className="hero-sub">
               Sin dietas milagro. Sin atajos. Solo un método probado, una
               herramienta clave y el acompañamiento de alguien que ya estuvo
               exactamente donde tú estás hoy.
             </p>
-            <p className="hero-sub lg:text-xl">
+            <p className="hero-sub">
               La pérdida de peso es solo lo que se ve en el espejo. La verdadera
               transformación ocurre en tu cabeza: en cómo piensas, cómo respiras
               y cómo te relacionas con la comida.
             </p>
-            <p className="hero-sub lg:text-xl">
+            <p className="hero-sub">
               Por eso no necesitas más fuerza de voluntad, necesitas reprogramar
               la ansiedad y el hambre emocional desde la raíz. Solo así
               conseguirás un cambio duradero.
@@ -161,12 +184,7 @@ export default function Home() {
       <section className="section" id="quien-soy">
         <div className="container">
           <div className="quien-soy-grid">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className="quien-soy-img"
-              src="/images/quien-soy-feature.jpg"
-              alt="Manu Palop practicando respiración consciente"
-            />
+            <PhotoGallery photos={GALERIA} className="quien-soy-carousel" />
             <div className="quien-soy-text">
               <p className="section-lead">
                 Pasé dos décadas con obesidad probando todos los métodos del
@@ -225,7 +243,7 @@ export default function Home() {
               rel="noopener"
               className="btn btn-accent"
             >
-              Quiero Club VIP
+              Quiero entrar al Club VIP
             </a>
           </div>
         </div>
@@ -248,9 +266,7 @@ export default function Home() {
               width={720}
               height={1272}
             />
-            <p className="video-caption">
-              Testimonios de clientes del Club VIP
-            </p>
+            <p className="video-caption">Testimonios de clientes</p>
           </div>
 
           <div className="testimonials-grid">
