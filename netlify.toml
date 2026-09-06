@@ -1,9 +1,0 @@
-# Despliegue del sitio en Next.js con export estatico.
-# El HTML generado conserva el formulario "contacto", asi que Netlify Forms
-# lo sigue detectando en cada deploy sin configuracion adicional.
-[build]
-  command = "npm run build"
-  publish = "out"
-
-[build.environment]
-  NODE_VERSION = "22"
