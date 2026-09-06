@@ -3,6 +3,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import VideoFacade from "@/components/VideoFacade";
 import PhotoCarousels, { PhotoGallery } from "@/components/PhotoCarousels";
+import CheckoutButton from "@/components/CheckoutButton";
 
 export const metadata: Metadata = {
   title: "Manu Palop | Club VIP",
@@ -237,14 +238,9 @@ export default function Home() {
             <div className="price-tag">
               <span>597€</span> / año
             </div>
-            <a
-              href={STRIPE}
-              target="_blank"
-              rel="noopener"
-              className="btn btn-accent"
-            >
+            <CheckoutButton className="btn btn-accent" fallbackHref={STRIPE}>
               Quiero entrar al Club VIP
-            </a>
+            </CheckoutButton>
           </div>
         </div>
       </section>
@@ -330,14 +326,9 @@ export default function Home() {
           <p className="cta-final-sub">
             Deja de buscar atajos y aprende el camino.
           </p>
-          <a
-            href={STRIPE}
-            target="_blank"
-            rel="noopener"
-            className="btn btn-dark"
-          >
+          <CheckoutButton className="btn btn-dark" fallbackHref={STRIPE}>
             Entrar al Club VIP
-          </a>
+          </CheckoutButton>
         </div>
       </section>
 

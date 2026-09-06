@@ -101,6 +101,7 @@ a {
   border-radius: 999px;
   font-weight: 700;
   font-size: 15px;
+  font-family: inherit;
   border: 2px solid transparent;
   cursor: pointer;
   transition:
@@ -997,6 +998,77 @@ a {
   cursor: pointer;
 }
 
+/* ---------- Checkout del Club VIP ---------- */
+.checkout-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  background: rgba(10, 8, 6, 0.74);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+.checkout-panel {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  max-height: 90vh;
+  max-height: 90dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 0 20px 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+.checkout-panel::-webkit-scrollbar {
+  display: none;
+}
+.checkout-cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 0 4px;
+  background: #fff;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.checkout-close {
+  background: none;
+  border: none;
+  font-size: 32px;
+  line-height: 1;
+  padding: 0 4px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.checkout-close:hover {
+  color: var(--text);
+}
+.checkout-estado {
+  text-align: center;
+  padding: 36px 0 44px;
+  color: var(--text-muted);
+}
+.checkout-estado p {
+  margin: 0 0 20px;
+}
+
+/* ---------- Gracias ---------- */
+.gracias-inner {
+  max-width: 680px;
+  text-align: center;
+}
+.gracias-nota {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin: 0 0 28px;
+}
+
 /* =========================================================
    Responsive
    ========================================================= */
@@ -1016,6 +1088,14 @@ a {
     max-height: none;
     justify-self: center;
     margin-inline: auto;
+  }
+
+  .checkout-overlay {
+    padding: 12px;
+  }
+  .checkout-panel {
+    max-width: none;
+    padding: 0 12px 16px;
   }
 
   .testimonials-grid {
