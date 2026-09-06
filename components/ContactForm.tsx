@@ -4,9 +4,9 @@ import { useState } from "react";
 
 type Status = { cls: string; node: React.ReactNode };
 
-/* Netlify Forms: el destinatario se configura en el panel de Netlify
-   (Forms > notificaciones), no en este archivo. El atributo name identifica
-   el formulario dentro del panel. */
+/* El envio pasa por /api/contacto, que manda el correo con Resend. El
+   destinatario y el remitente se configuran con variables de entorno en
+   Vercel, no en este archivo. */
 export default function ContactForm() {
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState<Status>({ cls: "form-note", node: null });
@@ -19,14 +19,11 @@ export default function ContactForm() {
     setStatus({ cls: "form-note", node: "Enviando…" });
 
     try {
-      // Netlify acepta el POST en cualquier ruta del sitio mientras el cuerpo
-      // lleve form-name. Ojo: solo funciona en el sitio desplegado en Netlify.
-      const res = await fetch("/", {
+      const campos = Object.fromEntries(new FormData(form).entries());
+      const res = await fetch("/api/contacto", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(
-          new FormData(form) as unknown as Record<string, string>
-        ).toString(),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(campos),
       });
       if (!res.ok) throw new Error("Error al enviar");
       setStatus({
@@ -56,12 +53,8 @@ export default function ContactForm() {
       id="contactForm"
       name="contacto"
       method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
       onSubmit={onSubmit}
     >
-      {/* Netlify necesita form-name cuando el envio se hace por JavaScript */}
-      <input type="hidden" name="form-name" value="contacto" />
       {/* Trampa antispam: los bots la rellenan, las personas no la ven */}
       <p style={{ display: "none" }}>
         <label>
