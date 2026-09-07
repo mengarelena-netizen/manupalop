@@ -28,7 +28,11 @@ export default function Libro() {
               los patrones que te sabotean. Es mi forma de decirte que sí se
               puede, y que no estás solo.
             </p>
-            <a href="#" className="btn btn-accent">
+            <a
+              href="https://amzn.to/3VvIIgj"
+              target="_blank"
+              className="btn btn-accent"
+            >
               Quiero leerlo
             </a>
           </div>

@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 
 export type Photo = { src: string; alt: string };
 
+const ROTATE_MS = 3000;
+
 function Carousel({
   label,
   intervalMs,
@@ -113,13 +115,13 @@ export default function PhotoCarousels({
       <div className="carousels">
         <Carousel
           label="140 kg"
-          intervalMs={3200}
+          intervalMs={ROTATE_MS}
           photos={antes}
           onPick={setZoomed}
         />
         <Carousel
           label="80 kg"
-          intervalMs={2800}
+          intervalMs={ROTATE_MS}
           photos={despues}
           onPick={setZoomed}
         />
