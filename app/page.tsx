@@ -279,7 +279,7 @@ export default function Home() {
       </section>
 
       {/* ===================== PARA QUIÉN ES RUGE ===================== */}
-      <section className="section" id="para-quien">
+      <section className="section section-alt" id="para-quien">
         <div className="container">
           <div className="programa-content">
             <h2>

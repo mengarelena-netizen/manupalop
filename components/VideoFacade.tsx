@@ -3,8 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /* La miniatura es solo una fachada: hasta que no se pulsa no se carga nada de
-   YouTube. Al reproducir se usa controls=0 y controles propios, para que no
-   aparezca el marco de YouTube (titulo, barra inferior, sello "Shorts"). */
+   YouTube. En escritorio se usa controls=0 y controles propios, para que no
+   aparezca el marco de YouTube. En tactil el navegador bloquea el autoplay con
+   sonido, asi que alli van los controles nativos del reproductor. */
 
 /* La API de YouTube no trae tipos; declaramos solo lo que usamos. */
 interface YTPlayer {
@@ -32,7 +33,12 @@ interface YTApi {
       };
     }
   ) => YTPlayer;
-  PlayerState: { PLAYING: number; PAUSED: number; ENDED: number };
+  PlayerState: {
+    PLAYING: number;
+    PAUSED: number;
+    ENDED: number;
+    BUFFERING: number;
+  };
 }
 type YTNamespace = typeof window & {
   YT?: YTApi;
@@ -59,6 +65,11 @@ function loadYouTubeApi(): Promise<YTApi> {
   return ytApi;
 }
 
+function prefersNativeControls() {
+  if (typeof window === "undefined" || !window.matchMedia) return false;
+  return window.matchMedia("(hover: none)").matches;
+}
+
 export default function VideoFacade({
   videoId,
   poster,
@@ -74,19 +85,23 @@ export default function VideoFacade({
   width: number;
   height: number;
 }) {
-  const [mode, setMode] = useState<"idle" | "loading" | "playing">("idle");
-  const [ready, setReady] = useState(false);
-  const [paused, setPaused] = useState(false);
+  const [mode, setMode] = useState<"idle" | "playing">("idle");
+  const [nativeControls, setNativeControls] = useState(false);
+  const [started, setStarted] = useState(false);
+  const [paused, setPaused] = useState(true);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<YTPlayer | null>(null);
+  const nativeRef = useRef(false);
 
   const restore = useCallback(() => {
     // Al terminar volvemos a la miniatura, en vez de dejar la pantalla final
     // de YouTube con sus videos sugeridos.
     playerRef.current?.destroy?.();
     playerRef.current = null;
-    setReady(false);
-    setPaused(false);
+    setStarted(false);
+    setPaused(true);
+    nativeRef.current = false;
+    setNativeControls(false);
     setMode("idle");
   }, []);
 
@@ -97,6 +112,7 @@ export default function VideoFacade({
     // por su iframe y React no debe intentar conciliarlo despues.
     const mount = document.createElement("div");
     stageRef.current.prepend(mount);
+    const native = nativeRef.current;
 
     let cancelled = false;
     loadYouTubeApi()
@@ -111,10 +127,10 @@ export default function VideoFacade({
           height: "100%",
           playerVars: {
             autoplay: 1,
-            controls: 0, // sin marco de YouTube durante la reproduccion
+            controls: native ? 1 : 0,
             rel: 0,
-            fs: 0,
-            disablekb: 1,
+            fs: native ? 1 : 0,
+            disablekb: native ? 0 : 1,
             playsinline: 1,
             modestbranding: 1,
             iv_load_policy: 3,
@@ -122,21 +138,30 @@ export default function VideoFacade({
           events: {
             onReady: (e: YTPlayerEvent) => {
               e.target.playVideo();
-              setReady(true);
               // El reproductor mide su tamano al crearse; le pedimos que lo
               // recalcule ya montado en el marco vertical.
               window.dispatchEvent(new Event("resize"));
             },
             onStateChange: (e: YTPlayerEvent) => {
-              setPaused(e.data === YT.PlayerState.PAUSED);
-              if (e.data === YT.PlayerState.ENDED) restore();
+              const state = e.data;
+              if (state === YT.PlayerState.PLAYING) {
+                setStarted(true);
+                setPaused(false);
+              } else if (state === YT.PlayerState.BUFFERING) {
+                setPaused(false);
+              } else if (state === YT.PlayerState.ENDED) {
+                restore();
+              } else {
+                setPaused(true);
+              }
             },
           },
         });
       })
       .catch(() => {
-        // Si la API de YouTube no carga, al menos que el video se pueda ver.
-        if (cancelled || !stageRef.current) return;
+        // Si la API de YouTube no carga, al menos que el video se pueda ver
+        // con los controles del propio iframe.
+        if (cancelled) return;
         const iframe = document.createElement("iframe");
         iframe.src =
           "https://www.youtube-nocookie.com/embed/" +
@@ -145,12 +170,17 @@ export default function VideoFacade({
         iframe.title = "Vídeo testimonio";
         iframe.allow = "autoplay; encrypted-media; picture-in-picture";
         iframe.allowFullscreen = true;
-        stageRef.current.replaceChildren(iframe);
-        setReady(true);
+        mount.replaceWith(iframe);
+        nativeRef.current = true;
+        setNativeControls(true);
+        setStarted(true);
       });
 
     return () => {
       cancelled = true;
+      playerRef.current?.destroy?.();
+      playerRef.current = null;
+      mount.remove();
     };
   }, [mode, videoId, restore]);
 
@@ -158,9 +188,14 @@ export default function VideoFacade({
     return (
       <button
         type="button"
-        className={`video-wrap${mode === "loading" ? " is-loading" : ""}`}
+        className="video-wrap"
         aria-label={ariaLabel}
-        onClick={() => setMode("playing")}
+        onClick={() => {
+          const native = prefersNativeControls();
+          nativeRef.current = native;
+          setNativeControls(native);
+          setMode("playing");
+        }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -183,34 +218,46 @@ export default function VideoFacade({
   return (
     <div
       ref={stageRef}
-      className={`video-wrap is-playing${ready ? " is-ready" : ""}${
+      className={`video-wrap is-playing${started ? " is-started" : ""}${
         paused ? " is-paused" : ""
-      }`}
+      }${nativeControls ? " is-native" : ""}`}
     >
-      {/* Capa propia: un solo boton de pausa/reproduccion encima del video, que
-          ademas impide que el usuario llegue al reproductor de YouTube. */}
-      <button
-        type="button"
-        className="video-toggle"
-        aria-label={paused ? "Reproducir vídeo" : "Pausar vídeo"}
-        onClick={() => {
-          const p = playerRef.current;
-          if (!p) return;
-          const YT = (window as YTNamespace).YT;
-          if (!YT) return;
-          if (p.getPlayerState() === YT.PlayerState.PLAYING) p.pauseVideo();
-          else p.playVideo();
-        }}
-      >
-        <span className="video-toggle-icon" aria-hidden="true">
-          <svg className="icon-pause" viewBox="0 0 24 24" focusable="false">
-            <path d="M7 5h3.4v14H7zm6.6 0H17v14h-3.4z" />
-          </svg>
-          <svg className="icon-play" viewBox="0 0 24 24" focusable="false">
-            <path d="M8 5.5v13l11-6.5z" />
-          </svg>
-        </span>
-      </button>
+      {!nativeControls && (
+        <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="video-poster"
+            src={poster}
+            alt=""
+            width={width}
+            height={height}
+            aria-hidden="true"
+          />
+          {/* Capa propia: un solo boton de pausa/reproduccion encima del video,
+              que ademas impide que el usuario llegue al reproductor. */}
+          <button
+            type="button"
+            className="video-toggle"
+            aria-label={paused ? "Reproducir vídeo" : "Pausar vídeo"}
+            onClick={() => {
+              const p = playerRef.current;
+              const YT = (window as YTNamespace).YT;
+              if (!p || !YT) return;
+              if (p.getPlayerState() === YT.PlayerState.PLAYING) p.pauseVideo();
+              else p.playVideo();
+            }}
+          >
+            <span className="video-toggle-icon" aria-hidden="true">
+              <svg className="icon-pause" viewBox="0 0 24 24" focusable="false">
+                <path d="M7 5h3.4v14H7zm6.6 0H17v14h-3.4z" />
+              </svg>
+              <svg className="icon-play" viewBox="0 0 24 24" focusable="false">
+                <path d="M8 5.5v13l11-6.5z" />
+              </svg>
+            </span>
+          </button>
+        </>
+      )}
     </div>
   );
 }
