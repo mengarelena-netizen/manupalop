@@ -184,14 +184,14 @@ export default function Home() {
       {/* ===================== QUIÉN SOY ===================== */}
       <section className="section" id="quien-soy">
         <div className="container">
+          <p className="section-lead quien-soy-intro">
+            Pasé dos décadas con obesidad probando todos los métodos del
+            mercado, hasta que entendí que la solución no estaba ahí fuera, sino
+            aquí dentro.
+          </p>
           <div className="quien-soy-grid">
             <PhotoGallery photos={GALERIA} className="quien-soy-carousel" />
             <div className="quien-soy-text">
-              <p className="section-lead">
-                Pasé dos décadas con obesidad probando todos los métodos del
-                mercado, hasta que entendí que la solución no estaba ahí fuera,
-                sino aquí dentro.
-              </p>
               <p className="section-lead">
                 Un método y una herramienta para llegar a mi subconsciente me
                 permitieron bajar 60 kg y cambiar para siempre mi relación con
@@ -284,7 +284,7 @@ export default function Home() {
           <div className="programa-content">
             <h2>
               El último programa de pérdida de peso que vas a contratar en tu
-              vida.
+              vida
             </h2>
             <p className="section-lead">
               El objetivo de RUGE no es que dependas de mí de por vida, sino
