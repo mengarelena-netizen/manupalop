@@ -18,7 +18,7 @@ export default function SiteFooter() {
         <p>&copy; <span id="year">{year}</span> Manu Palop</p>
         <div className="footer-links">
      
-          <Link href="/politica-de-privacidad">Política de privacidad</Link>
+          <Link href="/politica-de-privacidad">Política de privacidad y menciones legales</Link>
         </div>
       </div>
     </footer>
