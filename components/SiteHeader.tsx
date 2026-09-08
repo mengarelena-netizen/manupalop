@@ -23,10 +23,41 @@ export default function SiteHeader({ home = false }: { home?: boolean }) {
   // En la home los anclas son internos; en el resto vuelven a la portada.
   const base = home ? "" : "/";
 
+  // El menu movil bloquea el scroll del body mientras esta abierto; esperamos
+  // a que el efecto lo libere antes de mover la pagina.
+  const afterMenuCloses = (fn: () => void) =>
+    requestAnimationFrame(() => requestAnimationFrame(fn));
+
+  // En la home, "Home" y el logo suben a la primera seccion en vez de recargar.
+  const goTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    close();
+    if (!home) return;
+    e.preventDefault();
+    if (window.location.hash) {
+      history.replaceState(null, "", window.location.pathname);
+    }
+    afterMenuCloses(() => window.scrollTo({ top: 0, behavior: "smooth" }));
+  };
+
+  // Anclas de la home. El scroll suave se hace aqui porque html ya no lleva
+  // scroll-behavior: smooth (rompia el scroll de Next al cambiar de ruta).
+  const goSection =
+    (id: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+      close();
+      if (!home) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      e.preventDefault();
+      history.replaceState(null, "", `#${id}`);
+      afterMenuCloses(() =>
+        el.scrollIntoView({ behavior: "smooth", block: "start" }),
+      );
+    };
+
   return (
     <header className="site-header" id="top">
       <div className="container header-inner">
-        <Link href="/" className="logo" onClick={close}>
+        <Link href="/" className="logo" onClick={goTop}>
           MANU <span>PALOP</span>
         </Link>
 
@@ -34,13 +65,13 @@ export default function SiteHeader({ home = false }: { home?: boolean }) {
           <button className="nav-close" aria-label="Cerrar menú" onClick={close}>
             &times;
           </button>
-          <Link href="/" onClick={close}>
+          <Link href="/" onClick={goTop}>
             Home
           </Link>
-          <a href={`${base}#ruge`} onClick={close}>
+          <a href={`${base}#ruge`} onClick={goSection("ruge")}>
             Club VIP
           </a>
-          <a href={`${base}#testimonios`} onClick={close}>
+          <a href={`${base}#testimonios`} onClick={goSection("testimonios")}>
             Testimonios
           </a>
           <Link href="/diario" onClick={close}>
@@ -54,7 +85,11 @@ export default function SiteHeader({ home = false }: { home?: boolean }) {
           </Link>
         </nav>
 
-        <a href={`${base}#ruge`} className="btn btn-accent nav-cta">
+        <a
+          href={`${base}#ruge`}
+          className="btn btn-accent nav-cta"
+          onClick={goSection("ruge")}
+        >
           Club VIP
         </a>
 
