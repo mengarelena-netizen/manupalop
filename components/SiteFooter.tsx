@@ -17,10 +17,7 @@ export default function SiteFooter() {
       <div className="container footer-inner">
         <p>&copy; <span id="year">{year}</span> Manu Palop</p>
         <div className="footer-links">
-          <Link href="/diario">Diario</Link>
-          <Link href="/libro">Mi libro</Link>
-          <Link href="/contacto">Contacto</Link>
-          <a href="#">Menciones legales</a>
+     
           <Link href="/politica-de-privacidad">Política de privacidad</Link>
         </div>
       </div>

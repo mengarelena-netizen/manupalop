@@ -30,7 +30,10 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Sin scroll-behavior: smooth. El scroll de Next al cambiar de ruta se
+     convertia en una animacion que la pagina nueva (mas corta) recortaba,
+     dejando la vista a media pagina. Las anclas de la cabecera hacen el
+     scroll suave desde JS. */
   scroll-padding-top: calc(var(--header-h) + 12px);
 }
 
@@ -891,11 +894,17 @@ a {
 }
 .footer-inner {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 12px 20px;
   font-size: 14px;
   color: var(--text-muted);
+  text-align: center;
+}
+/* Sin el margen por defecto del <p> ambos bloques comparten la misma linea. */
+.footer-inner p {
+  margin: 0;
 }
 .footer-links {
   display: flex;
