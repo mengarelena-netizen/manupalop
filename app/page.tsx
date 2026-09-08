@@ -255,7 +255,7 @@ export default function Home() {
 
           <div className="video-showcase">
             <VideoFacade
-              videoId="OLIdk7JJBv0"
+              src="/testimonials.mp4"
               poster="/images/testimonio-video-poster.jpg"
               posterAlt="Clientes del Club VIP contando su experiencia en vídeo"
               ariaLabel="Reproducir el vídeo con los testimonios de clientes"
