@@ -15,10 +15,16 @@ export default function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="container footer-inner">
-        <p>&copy; <span id="year">{year}</span> Manu Palop</p>
+        <p>
+          &copy; <span id="year">{year}</span> Manu Palop
+        </p>
         <div className="footer-links">
-     
-          <Link href="/politica-de-privacidad">Política de privacidad y menciones legales</Link>
+          <Link href="/aviso-legal">Aviso legal</Link>
+          <Link href="/politica-de-privacidad">Política de privacidad</Link>
+          <Link href="/politica-de-cookies">Política de cookies</Link>
+          <Link href="/condiciones-de-contratacion">
+            Condiciones de contratación
+          </Link>
         </div>
       </div>
     </footer>
