@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const btn = cva(
-  "inline-block cursor-pointer rounded-full border-2 border-transparent px-7 py-3.5 font-sans text-[15px] font-bold [transition:transform_0.15s_ease,background_0.2s_ease,color_0.2s_ease] hover:[transform:translateY(-2px)]",
+  "inline-block cursor-pointer rounded-full border-2 border-transparent px-7 py-3.5 font-sans text-[15px] font-bold [transition:background_0.2s_ease,color_0.2s_ease]",
   {
     variants: {
       variant: {

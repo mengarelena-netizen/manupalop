@@ -20,10 +20,10 @@ export default function ClubVipSection() {
   return (
     <section className={cn(SECTION, "bg-surface-alt")} id="ruge">
       <Container className="max-w-[760px] text-left">
-        <h2 className="mb-6">
+        <h2 className="mb-6" data-reveal="">
           Mi acompañamiento para transformar tu cuerpo y tu mente
         </h2>
-        <div className={cn(LEAD, "flex flex-col gap-6")}>
+        <div className={cn(LEAD, "flex flex-col gap-6")} data-reveal="">
           <p className="m-0">
             No necesitas más información, necesitas dirección, claridad y
             alguien que haya recorrido este camino antes.
@@ -35,7 +35,7 @@ export default function ClubVipSection() {
         </div>
         <ul className="mx-0 mt-6 mb-8 inline-grid list-none gap-3 p-0 text-left desktop:mx-auto">
           {INCLUYE.map((item) => (
-            <li key={item} className={CHECK_ITEM}>
+            <li key={item} className={CHECK_ITEM} data-reveal="">
               {item}
             </li>
           ))}
@@ -46,14 +46,12 @@ export default function ClubVipSection() {
             CARD,
             "mx-auto flex max-w-[360px] flex-col items-center gap-4 bg-surface px-7 py-8 text-center",
           )}
+          data-reveal="zoom"
         >
           <div className="text-[22px] font-extrabold">
             <span className="text-[32px] text-brand-dark">597€</span> / año
           </div>
-          <CheckoutButton
-            className={btn()}
-            fallbackHref={STRIPE_CHECKOUT_URL}
-          >
+          <CheckoutButton className={btn()} fallbackHref={STRIPE_CHECKOUT_URL}>
             Quiero entrar al Club VIP
           </CheckoutButton>
         </div>

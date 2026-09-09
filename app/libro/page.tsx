@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import Container from "@/components/Container";
+import { MotionA } from "@/components/motion/primitives";
+import { lift } from "@/components/motion/config";
 import { btn, LEAD, SECTION } from "@/lib/site-ui";
 import { cn } from "@/lib/utils";
 
@@ -18,7 +20,7 @@ export default function Libro() {
 
       <section className={SECTION} id="libro">
         <Container className="grid max-w-[660px] grid-cols-1 items-center gap-14 desktop:grid-cols-[1.2fr_0.8fr]">
-          <div className="desktop:text-left">
+          <div className="desktop:text-left" data-reveal="">
             <h2>
               Método TEMIS:
               <br />
@@ -31,22 +33,23 @@ export default function Libro() {
               los patrones que te sabotean. Es mi forma de decirte que sí se
               puede, y que no estás solo.
             </p>
-            <a
+            <MotionA
               href="https://amzn.to/3VvIIgj"
               target="_blank"
-              className={cn(
-                btn(),
-                "mx-auto mt-2 block w-fit desktop:mx-0",
-              )}
+              className={cn(btn(), "mx-auto mt-2 block w-fit desktop:mx-0")}
+              {...lift}
             >
               Quiero leerlo
-            </a>
+            </MotionA>
           </div>
-          <div>
+          <div data-reveal="zoom">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              className="max-h-[560px] w-full rounded-card object-cover"
-              src="/images/libro.jpg"
+              className="h-auto max-h-[560px] w-full rounded-card object-cover"
+              src="/images/opt/libro.webp"
+              srcSet="/images/opt/libro.webp 1x, /images/opt/libro@2x.webp 2x"
+              width={612}
+              height={816}
               alt="Manu Palop con su libro Método TEMIS"
             />
           </div>

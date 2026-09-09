@@ -36,8 +36,8 @@ export default function PoliticaDePrivacidad() {
             <h3>1. Responsable del tratamiento</h3>
             <ul>
               <li>
-                <strong>Titular:</strong> Manuel Palop Pérez (en adelante,
-                «Manu Palop»)
+                <strong>Titular:</strong> Manuel Palop Pérez (en adelante, «Manu
+                Palop»)
               </li>
               <li>
                 <strong>NIF:</strong> 51102118M
@@ -58,9 +58,7 @@ export default function PoliticaDePrivacidad() {
 
           <LegalBlock>
             <h2>2. Datos recabados y origen</h2>
-            <p>
-              Recopilamos los datos estrictamente necesarios a través de:
-            </p>
+            <p>Recopilamos los datos estrictamente necesarios a través de:</p>
             <ul>
               <li>
                 <strong>Formulario de newsletter:</strong> Correo electrónico.
@@ -151,9 +149,9 @@ export default function PoliticaDePrivacidad() {
             <h2>5. Destinatarios y transferencias internacionales</h2>
             <p>
               No vendemos ni cedemos tus datos personales a terceros. Para
-              prestar nuestros servicios de forma segura y eficiente,
-              utilizamos herramientas tecnológicas de proveedores de confianza
-              que actúan en calidad de encargados del tratamiento:
+              prestar nuestros servicios de forma segura y eficiente, utilizamos
+              herramientas tecnológicas de proveedores de confianza que actúan
+              en calidad de encargados del tratamiento:
             </p>
             <ul>
               <li>

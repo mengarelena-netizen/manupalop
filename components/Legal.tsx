@@ -37,6 +37,7 @@ export function LegalCard({ children }: { children: React.ReactNode }) {
         LISTS,
         "mb-9 bg-surface-alt p-7 [&_h3]:mt-0 [&_h3]:mb-4 [&_h3]:text-[20px] [&_h3]:text-ink",
       )}
+      data-reveal="zoom"
     >
       {children}
     </div>
@@ -53,6 +54,7 @@ export function LegalBlock({ children }: { children: React.ReactNode }) {
         "[&_h2]:mt-7 [&_h2]:mb-3.5 [&_h2]:border-b [&_h2]:border-line [&_h2]:pb-2 [&_h2]:text-[22px] [&_h2]:font-bold [&_h2]:text-ink",
         "[&_p]:mb-3.5 [&_p]:text-[16px] [&_p]:leading-[1.65] [&_p]:text-ink",
       )}
+      data-reveal=""
     >
       {children}
     </div>

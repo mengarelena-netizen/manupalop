@@ -46,32 +46,47 @@ export default function TestimonialsSection() {
   return (
     <section className={SECTION} id="testimonios">
       <Container>
-        <h2 className={cn(HEADING, "text-left desktop:text-center")}>
-          Ellos han confiado en mí
-        </h2>
-        <p className={cn(LEAD, "mx-0 text-left desktop:mx-auto desktop:text-center")}>
-          Y yo les he ayudado a transformar sus vidas.
-        </p>
-
-        <div className="mx-auto mt-10 mb-14 flex max-w-[820px] flex-col items-center rounded-[24px] border border-line bg-surface-alt px-4 pt-7 pb-6 tablet:px-6 tablet:pt-11 tablet:pb-8">
-          <VideoFacade
-            src="/testimonials.mp4"
-            poster="/images/testimonio-video-poster.jpg"
-            posterAlt="Clientes del Club VIP contando su experiencia en vídeo"
-            ariaLabel="Reproducir el vídeo con los testimonios de clientes"
-            width={720}
-            height={1272}
-          />
-          <p className="mt-5 mb-0 text-[15px] text-ink-muted text-left desktop:text-center">
-            Testimonios de clientes
+        <div>
+          <h2
+            className={cn(HEADING, "text-left desktop:text-center")}
+            data-reveal=""
+          >
+            Ellos han confiado en mí
+          </h2>
+          <p
+            className={cn(
+              LEAD,
+              "mx-0 text-left desktop:mx-auto desktop:text-center",
+            )}
+            data-reveal=""
+          >
+            Y yo les he ayudado a transformar sus vidas.
           </p>
+
+          <div
+            className="mx-auto mt-10 mb-14 flex max-w-[820px] flex-col items-center rounded-[24px] border border-line bg-surface-alt px-4 pt-7 pb-6 tablet:px-6 tablet:pt-11 tablet:pb-8"
+            data-reveal="zoom"
+          >
+            <VideoFacade
+              src="/testimonials.mp4"
+              poster="/images/opt/testimonio-video-poster.webp"
+              posterAlt="Clientes del Club VIP contando su experiencia en vídeo"
+              ariaLabel="Reproducir el vídeo con los testimonios de clientes"
+              width={720}
+              height={1272}
+            />
+            <p className="mt-5 mb-0 text-left text-[15px] text-ink-muted desktop:text-center">
+              Testimonios de clientes
+            </p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 gap-6 tablet:grid-cols-2">
           {TESTIMONIOS.map((t) => (
             <blockquote
-              className="m-0 rounded-card bg-surface-alt p-7"
               key={t.name}
+              className="m-0 rounded-card bg-surface-alt p-7"
+              data-reveal=""
             >
               <p className="mx-0 mt-0 mb-4 text-[16px]">{t.quote}</p>
               <cite className="block font-bold not-italic">

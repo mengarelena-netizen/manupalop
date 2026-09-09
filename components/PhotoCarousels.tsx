@@ -1,11 +1,24 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import Portal from "@/components/Portal";
+import {
+  CROSSFADE,
+  FADE,
+  SPRING_PANEL,
+  SPRING_TAP,
+} from "@/components/motion/config";
 import { cn } from "@/lib/utils";
 
 export type Photo = { src: string; alt: string };
 
 const ROTATE_MS = 3000;
+
+// Las fotos se sirven en el tamano en que se ven. El lightbox las abre a
+// pantalla completa, asi que ahi se pide la variante grande.
+const at2x = (src: string) => src.replace(/\.webp$/, "@2x.webp");
+const atFull = (src: string) => src.replace(/\.webp$/, "-full.webp");
 
 function Carousel({
   label,
@@ -13,26 +26,44 @@ function Carousel({
   photos,
   onPick,
   className,
+  priority = false,
 }: {
   label?: string;
   intervalMs: number;
   photos: Photo[];
   onPick: (p: Photo) => void;
   className?: string;
+  priority?: boolean;
 }) {
   const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(false);
   const paused = useRef(false);
+  const box = useRef<HTMLDivElement | null>(null);
+
+  // El carrusel no gira mientras no se ve. Si no, al bajar la pagina te
+  // encuentras una foto que aun se esta descargando en vez de la primera.
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
-    if (photos.length < 2) return;
+    if (!visible || photos.length < 2) return;
     const timer = setInterval(() => {
       if (!paused.current) setIndex((i) => (i + 1) % photos.length);
     }, intervalMs);
     return () => clearInterval(timer);
-  }, [intervalMs, photos.length]);
+  }, [visible, intervalMs, photos.length]);
 
   return (
     <div
+      ref={box}
       className={cn(
         "relative aspect-[4/5] overflow-hidden rounded-card bg-line",
         className,
@@ -48,17 +79,23 @@ function Carousel({
       ) : null}
       <div className="relative h-full w-full">
         {photos.map((p, i) => (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
+          <motion.img
             key={p.src}
             className={cn(
-              "absolute inset-0 h-full w-full cursor-pointer object-cover object-[center_20%] transition-opacity duration-1000 ease-[ease]",
-              i === index
-                ? "pointer-events-auto opacity-100"
-                : "pointer-events-none opacity-0",
+              "absolute inset-0 h-full w-full cursor-pointer object-cover object-[center_20%]",
+              i === index ? "pointer-events-auto" : "pointer-events-none",
             )}
+            initial={false}
+            animate={{ opacity: i === index ? 1 : 0 }}
+            transition={CROSSFADE}
             src={p.src}
+            srcSet={`${p.src} 1x, ${at2x(p.src)} 2x`}
             alt={p.alt}
+            // Solo la primera foto de cada carrusel entra en la carga inicial;
+            // las demas eran 3,7 MB compitiendo con lo que si se ve.
+            loading={i === 0 ? "eager" : "lazy"}
+            fetchPriority={i === 0 && priority ? "high" : undefined}
+            decoding="async"
             onClick={() => onPick(p)}
           />
         ))}
@@ -75,29 +112,42 @@ function Lightbox({
   onClose: () => void;
 }) {
   return (
-    <div
-      className={cn(
-        "fixed inset-0 z-200 items-center justify-center bg-[rgba(10,8,6,0.92)] p-10",
-        photo ? "flex" : "hidden",
-      )}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
-      <button
-        className="absolute top-6 right-8 cursor-pointer border-0 bg-transparent text-[36px] text-white"
-        aria-label="Cerrar"
-        onClick={onClose}
-      >
-        &times;
-      </button>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        className="max-h-[90vh] max-w-full rounded-[10px]"
-        src={photo?.src ?? ""}
-        alt={photo?.alt ?? ""}
-      />
-    </div>
+    <Portal>
+      <AnimatePresence>
+        {photo ? (
+          <motion.div
+            className="fixed inset-0 z-200 flex items-center justify-center bg-[rgba(10,8,6,0.92)] p-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={FADE}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) onClose();
+            }}
+          >
+            <motion.button
+              className="absolute top-6 right-8 cursor-pointer border-0 bg-transparent text-[36px] text-white"
+              aria-label="Cerrar"
+              onClick={onClose}
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.9 }}
+              transition={SPRING_TAP}
+            >
+              &times;
+            </motion.button>
+            <motion.img
+              className="max-h-[90vh] max-w-full rounded-[10px]"
+              src={atFull(photo.src)}
+              alt={photo.alt}
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              transition={SPRING_PANEL}
+            />
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </Portal>
   );
 }
 
@@ -105,10 +155,12 @@ export function PhotoGallery({
   photos,
   intervalMs = 3600,
   className,
+  priority = false,
 }: {
   photos: Photo[];
   intervalMs?: number;
   className?: string;
+  priority?: boolean;
 }) {
   const [zoomed, setZoomed] = useState<Photo | null>(null);
 
@@ -119,6 +171,7 @@ export function PhotoGallery({
         photos={photos}
         onPick={setZoomed}
         className={className}
+        priority={priority}
       />
       <Lightbox photo={zoomed} onClose={() => setZoomed(null)} />
     </>

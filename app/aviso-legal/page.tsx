@@ -36,8 +36,8 @@ export default function AvisoLegal() {
             <h3>Datos identificativos del titular</h3>
             <ul>
               <li>
-                <strong>Titular:</strong> Manuel Palop Pérez (en adelante,
-                «Manu Palop»)
+                <strong>Titular:</strong> Manuel Palop Pérez (en adelante, «Manu
+                Palop»)
               </li>
               <li>
                 <strong>NIF:</strong> 51102118M
