@@ -15,10 +15,10 @@ export default function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="container footer-inner">
-        <p>
+        <p className="text-xs sm:text-sm">
           &copy; <span id="year">{year}</span> Manu Palop
         </p>
-        <div className="footer-links">
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2.5 text-xs sm:text-sm [&_a:hover]:text-[var(--accent-dark)]">
           <Link href="/aviso-legal">Aviso legal</Link>
           <Link href="/politica-de-privacidad">Política de privacidad</Link>
           <Link href="/politica-de-cookies">Política de cookies</Link>

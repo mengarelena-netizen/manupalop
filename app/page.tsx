@@ -6,7 +6,7 @@ import PhotoCarousels, { PhotoGallery } from "@/components/PhotoCarousels";
 import CheckoutButton from "@/components/CheckoutButton";
 
 export const metadata: Metadata = {
-  title: "Manu Palop | Club VIP",
+  title: "Manu Palop | Pérdida de peso",
   description:
     "Perdí 60 kg y ahora acompaño a otras personas a lograrlo. Únete al Club VIP.",
 };

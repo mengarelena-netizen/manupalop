@@ -910,15 +910,6 @@ a {
 .footer-inner p {
   margin: 0;
 }
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px 20px;
-}
-.footer-links a:hover {
-  color: var(--accent-dark);
-}
 
 /* ---------- Lightbox ---------- */
 .lightbox {
@@ -1333,7 +1324,7 @@ a {
     height: calc(100vh - var(--header-h) - 1px);
     height: calc(100svh - var(--header-h) - 1px);
   }
-  .carousel {
+  .carousels .carousel {
     width: min(100%, 340px);
     margin-inline: auto;
     aspect-ratio: auto;
