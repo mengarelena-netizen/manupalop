@@ -28,8 +28,8 @@ export const metadata: Metadata = {
 // El MutationObserver del final no es opcional: al navegar entre paginas Next
 // cambia el DOM sin recargar, y sin el lo nuevo se quedaria oculto por el CSS
 // para siempre (pagina en blanco hasta refrescar).
-const REVEAL_STEP_MS = 40;
-const REVEAL_MAX_STEPS = 3;
+const REVEAL_STEP_MS = 80;
+const REVEAL_MAX_STEPS = 5;
 const REVEAL_SCRIPT = `(function(){
 var d=document,r=d.documentElement;
 if(!('IntersectionObserver' in window))return;
@@ -52,7 +52,7 @@ if(!es[i].isIntersecting)continue;
 io.unobserve(es[i].target);hit.push(es[i]);
 }
 if(hit.length)show(hit,false);
-},{threshold:0,rootMargin:'120px 0px 40px 0px'});
+},{threshold:0,rootMargin:'0px 0px -30px 0px'});
 function scan(){
 queued=false;
 var n=d.querySelectorAll('[data-reveal]'),immediate=[];
@@ -61,7 +61,7 @@ for(var i=0;i<n.length;i++){
 if(seen.has(n[i]))continue;
 seen.add(n[i]);
 var rect=n[i].getBoundingClientRect();
-if(n[i].hasAttribute('data-reveal-first')||rect.top<vh+40){
+if(n[i].hasAttribute('data-reveal-first')||rect.top<vh-40){
 immediate.push({target:n[i]});
 }else{
 io.observe(n[i]);
