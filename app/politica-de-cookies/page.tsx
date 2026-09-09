@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import {
+  LegalBlock,
+  LegalContainer,
+  LEGAL_INTRO,
+  LEGAL_SUBTITLE,
+} from "@/components/Legal";
+import { HEADING, SECTION } from "@/lib/site-ui";
 import CookieSettingsButton from "@/components/CookieSettingsButton";
 
 export const metadata: Metadata = {
@@ -15,11 +22,11 @@ export default function PoliticaDeCookies() {
     <>
       <SiteHeader />
 
-      <main className="section" id="politica-de-cookies">
-        <div className="container legal-container">
-          <h1 className="section-title">Política de cookies</h1>
+      <main className={SECTION} id="politica-de-cookies">
+        <LegalContainer>
+          <h1 className={HEADING}>Política de cookies</h1>
 
-          <p className="legal-intro">
+          <p className={LEGAL_INTRO}>
             En cumplimiento del artículo 22.2 de la Ley 34/2002, de 11 de julio,
             de Servicios de la Sociedad de la Información y de Comercio
             Electrónico (LSSI-CE), y del Reglamento General de Protección de
@@ -27,7 +34,7 @@ export default function PoliticaDeCookies() {
             sitio web <code>manupalop.com</code>.
           </p>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>1. ¿Qué son las cookies?</h2>
             <p>
               Una cookie es un pequeño fichero de texto que se descarga en el
@@ -36,9 +43,9 @@ export default function PoliticaDeCookies() {
               hábitos de navegación de un usuario o de su equipo para mejorar el
               servicio y la experiencia de uso.
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>2. Tipos de cookies utilizadas en manupalop.com</h2>
             <ul>
               <li>
@@ -61,12 +68,12 @@ export default function PoliticaDeCookies() {
                 configuración.
               </li>
             </ul>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>3. Relación de cookies utilizadas</h2>
 
-            <h3 className="legal-subtitle">Cookies propias y técnicas</h3>
+            <h3 className={LEGAL_SUBTITLE}>Cookies propias y técnicas</h3>
             <ul>
               <li>
                 <strong>Nombre / Origen:</strong> Vercel / manupalop.com
@@ -80,7 +87,7 @@ export default function PoliticaDeCookies() {
               </li>
             </ul>
 
-            <h3 className="legal-subtitle">
+            <h3 className={LEGAL_SUBTITLE}>
               Cookies analíticas de terceros (Google Analytics)
             </h3>
             <ul>
@@ -106,7 +113,7 @@ export default function PoliticaDeCookies() {
               </li>
             </ul>
 
-            <h3 className="legal-subtitle">
+            <h3 className={LEGAL_SUBTITLE}>
               Cookies de pasarela de pago (Stripe)
             </h3>
             <ul>
@@ -125,16 +132,16 @@ export default function PoliticaDeCookies() {
                 <strong>Duración:</strong> Sesión / 1 año.
               </li>
             </ul>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>4. Gestión y revocación del consentimiento</h2>
             <p>
               El usuario puede en cualquier momento aceptar, configurar o
               rechazar la instalación de cookies analíticas a través del banner
               o panel de configuración de cookies visible en el sitio web.
             </p>
-            <p className="cookie-panel-cta">
+            <p className="mx-0 mt-[18px] mb-3.5">
               <CookieSettingsButton />
             </p>
             <p>
@@ -165,18 +172,18 @@ export default function PoliticaDeCookies() {
               ningún caso la correcta navegación por la web ni el acceso a los
               contenidos o al proceso de compra.
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>5. Contacto</h2>
             <p>
               Para cualquier duda o consulta sobre esta Política de Cookies, el
               usuario puede dirigirse a{" "}
               <a href="mailto:hola@manupalop.com">hola@manupalop.com</a>.
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>Documentos relacionados</h2>
             <ul>
               <li>
@@ -193,8 +200,8 @@ export default function PoliticaDeCookies() {
                 </Link>
               </li>
             </ul>
-          </div>
-        </div>
+          </LegalBlock>
+        </LegalContainer>
       </main>
 
       <SiteFooter />

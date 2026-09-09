@@ -9,7 +9,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es">
+    <html
+      lang="es"
+      className="[scroll-padding-top:calc(var(--header-h)_+_12px)]"
+    >
       <head>
         {/* Misma fuente y mismo orden de carga que el sitio original. Se usa
             el <link> de Google Fonts en vez de next/font a proposito: next/font
@@ -27,7 +30,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>
+      <body className="m-0 bg-surface font-sans leading-[1.55] text-ink antialiased">
         {children}
         <CookieConsent />
       </body>
