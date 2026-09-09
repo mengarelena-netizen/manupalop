@@ -10,7 +10,6 @@ export default function BeforeAfterSection() {
           <div
             className="mt-10 overflow-hidden rounded-card border border-line"
             data-reveal="zoom"
-            data-reveal-first
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -38,7 +37,6 @@ export default function BeforeAfterSection() {
                 fetchPriority="low"
                 decoding="async"
                 data-reveal="zoom"
-                data-reveal-first
               />
             ))}
           </div>

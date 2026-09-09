@@ -28,21 +28,21 @@ export const metadata: Metadata = {
 // El MutationObserver del final no es opcional: al navegar entre paginas Next
 // cambia el DOM sin recargar, y sin el lo nuevo se quedaria oculto por el CSS
 // para siempre (pagina en blanco hasta refrescar).
-const REVEAL_STEP_MS = 90;
-const REVEAL_MAX_STEPS = 5;
+const REVEAL_STEP_MS = 40;
+const REVEAL_MAX_STEPS = 3;
 const REVEAL_SCRIPT = `(function(){
 var d=document,r=d.documentElement;
 if(!('IntersectionObserver' in window))return;
-r.className+=' reveal-ready';
+r.classList.add('reveal-ready');
 var seen=new WeakSet(),queued=false;
-function show(list){
+function show(list,immediate){
 list.sort(function(a,b){
 var p=a.target.compareDocumentPosition(b.target);
 return (p&4)?-1:(p&2)?1:0;
 });
 for(var k=0;k<list.length;k++){
 var el=list[k].target;
-el.style.transitionDelay=(Math.min(k,${REVEAL_MAX_STEPS})*${REVEAL_STEP_MS})+'ms';
+el.style.transitionDelay=immediate?'0ms':(Math.min(k,${REVEAL_MAX_STEPS})*${REVEAL_STEP_MS})+'ms';
 el.classList.add('reveal-in');
 }}
 var io=new IntersectionObserver(function(es){
@@ -51,22 +51,28 @@ for(var i=0;i<es.length;i++){
 if(!es[i].isIntersecting)continue;
 io.unobserve(es[i].target);hit.push(es[i]);
 }
-show(hit);
-},{threshold:0,rootMargin:'0px 0px 22% 0px'});
+if(hit.length)show(hit,false);
+},{threshold:0,rootMargin:'120px 0px 40px 0px'});
 function scan(){
 queued=false;
-var n=d.querySelectorAll('[data-reveal]'),now=[];
+var n=d.querySelectorAll('[data-reveal]'),immediate=[];
+var vh=window.innerHeight||800;
 for(var i=0;i<n.length;i++){
 if(seen.has(n[i]))continue;
 seen.add(n[i]);
-if(n[i].hasAttribute('data-reveal-first')){
-now.push({target:n[i],boundingClientRect:n[i].getBoundingClientRect()});
-}else io.observe(n[i]);
+var rect=n[i].getBoundingClientRect();
+if(n[i].hasAttribute('data-reveal-first')||rect.top<vh+40){
+immediate.push({target:n[i]});
+}else{
+io.observe(n[i]);
 }
-if(now.length)show(now);
+}
+if(immediate.length)show(immediate,true);
 }
 function queue(){if(queued)return;queued=true;requestAnimationFrame(scan);}
-if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',scan);else scan();
+scan();
+if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',scan);
+window.addEventListener('load',scan);
 new MutationObserver(queue).observe(r,{childList:true,subtree:true});
 })();`;
 

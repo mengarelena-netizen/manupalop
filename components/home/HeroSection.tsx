@@ -15,17 +15,17 @@ export default function HeroSection() {
             Perdí 60 kg. <br />
             Ahora te enseño el camino.
           </h1>
-          <p className={SUB} data-reveal="" data-reveal-first>
+          <p className={SUB} data-reveal="">
             Sin dietas milagro. Sin atajos. Solo un método probado, una
             herramienta clave y el acompañamiento de alguien que ya estuvo
             exactamente donde tú estás hoy.
           </p>
-          <p className={SUB} data-reveal="" data-reveal-first>
+          <p className={SUB} data-reveal="">
             La pérdida de peso es solo lo que se ve en el espejo. La verdadera
             transformación ocurre en tu cabeza: en cómo piensas, cómo respiras y
             cómo te relacionas con la comida.
           </p>
-          <p className={SUB} data-reveal="" data-reveal-first>
+          <p className={SUB} data-reveal="">
             Por eso no necesitas más fuerza de voluntad, necesitas reprogramar
             la ansiedad y el hambre emocional desde la raíz. Solo así
             conseguirás un cambio duradero.
