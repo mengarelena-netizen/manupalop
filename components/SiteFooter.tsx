@@ -19,8 +19,8 @@ export default function SiteFooter() {
           &copy; <span id="year">{year}</span> Manu Palop
         </p>
 
-        {/* Links: Wraps naturally on 2 small rows on mobile, 1 inline row on desktop */}
-        <div className="flex flex-wrap items-center justify-center gap-x-3.5 sm:gap-x-5 gap-y-1 text-xs sm:text-sm [&_a:hover]:text-brand-dark">
+        {/* Links: 2 items per row on mobile (grid grid-cols-2), 1 row on desktop (sm:flex sm:w-auto) */}
+        <div className="grid grid-cols-2 w-full sm:w-auto sm:flex sm:flex-wrap items-center justify-center gap-x-3.5 sm:gap-x-5 gap-y-1.5 text-xs sm:text-sm [&_a:hover]:text-brand-dark">
           <Link href="/aviso-legal">Aviso legal</Link>
           <Link href="/politica-de-privacidad">Política de privacidad</Link>
           <Link href="/politica-de-cookies">Política de cookies</Link>
