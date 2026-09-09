@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Stripe from "stripe";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import Container from "@/components/Container";
+import { MotionLink } from "@/components/motion/primitives";
+import { lift } from "@/components/motion/config";
 import { btn, HEADING, LEAD, SECTION } from "@/lib/site-ui";
 
 export const metadata: Metadata = {
@@ -41,30 +42,43 @@ export default async function Gracias({
         <Container className="max-w-[680px] text-center">
           {pendiente ? (
             <>
-              <h1 className={HEADING}>El pago no se ha completado</h1>
-              <p className={LEAD}>
+              <h1 className={HEADING} data-reveal="">
+                El pago no se ha completado
+              </h1>
+              <p className={LEAD} data-reveal="">
                 No se ha cobrado nada. Puedes volver a intentarlo cuando
                 quieras, o escribirme si necesitas ayuda.
               </p>
-              <Link href="/#ruge" className={btn()}>
-                Volver a intentarlo
-              </Link>
+              <div data-reveal="zoom">
+                <MotionLink href="/#ruge" className={btn()} {...lift}>
+                  Volver a intentarlo
+                </MotionLink>
+              </div>
             </>
           ) : (
             <>
-              <h1 className={HEADING}>Bienvenido al Club VIP</h1>
-              <p className={LEAD}>
+              <h1 className={HEADING} data-reveal="">
+                Bienvenido al Club VIP
+              </h1>
+              <p className={LEAD} data-reveal="">
                 Tu pago se ha realizado correctamente. Recibirás un correo con
                 el recibo y los siguientes pasos para empezar. Si no lo ves en
                 unos minutos, revisa la carpeta de spam.
               </p>
-              <p className="mx-0 mt-0 mb-7 text-[15px] text-ink-muted">
+              <p
+                className="mx-0 mt-0 mb-7 text-[15px] text-ink-muted"
+                data-reveal=""
+              >
                 ¿Alguna duda? Escríbeme a{" "}
                 <a href="mailto:hola@manupalop.com">hola@manupalop.com</a>.
               </p>
-              <Link href="/" className={btn({ variant: "dark" })}>
+              <MotionLink
+                href="/"
+                className={btn({ variant: "dark" })}
+                {...lift}
+              >
                 Volver al inicio
-              </Link>
+              </MotionLink>
             </>
           )}
         </Container>

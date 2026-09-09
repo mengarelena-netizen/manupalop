@@ -2,7 +2,16 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import Container from "@/components/Container";
+import { MotionA } from "@/components/motion/primitives";
+import {
+  FADE,
+  lift,
+  SPRING_PANEL,
+  SPRING_TAP,
+} from "@/components/motion/config";
+import { useMediaQuery } from "@/lib/use-media-query";
 import { btn } from "@/lib/site-ui";
 import { cn } from "@/lib/utils";
 
@@ -11,7 +20,17 @@ const NAV_LINK = "block whitespace-nowrap hover:text-brand-dark";
 /** Cabecera con el menu movil. Sustituye al bloque "Menu movil" de script.js. */
 export default function SiteHeader({ home = false }: { home?: boolean }) {
   const [open, setOpen] = useState(false);
-  const close = () => setOpen(false);
+  // Solo se anima lo que pide el usuario. Cuando motion toma el control del
+  // transform al hidratar, o al cruzar el corte de 900px, el cajon se coloca
+  // de golpe en vez de verse cruzar la pantalla.
+  const [animar, setAnimar] = useState(false);
+  const close = () => {
+    setAnimar(true);
+    setOpen(false);
+  };
+  // El cajon solo se desplaza en movil; en escritorio la nav va en su sitio.
+  const isDrawer = useMediaQuery("(max-width: 900px)");
+  const known = isDrawer !== null;
 
   useEffect(() => {
     if (!open) return;
@@ -73,14 +92,18 @@ export default function SiteHeader({ home = false }: { home?: boolean }) {
           MANU <span className="text-brand">PALOP</span>
         </Link>
 
-        <nav
+        <motion.nav
           className={cn(
-            "fixed top-0 right-0 left-auto z-120 h-[100dvh] w-[65%] max-w-[360px] min-w-[260px] flex-col items-stretch gap-[22px] overflow-y-auto border-l border-line bg-white px-7 pt-21 pb-8 text-left text-[18px] shadow-[-14px_0_34px_rgba(23,20,15,0.16)] transition-transform duration-[0.28s] ease-[ease]",
-            "desktop:static desktop:z-auto desktop:ml-auto desktop:h-auto desktop:w-auto desktop:max-w-none desktop:min-w-0 desktop:flex-row desktop:items-center desktop:gap-[26px] desktop:overflow-visible desktop:border-0 desktop:bg-transparent desktop:p-0 desktop:text-[15px] desktop:font-semibold desktop:shadow-none desktop:transition-none",
+            "fixed top-0 right-0 left-auto z-120 h-[100dvh] w-[65%] max-w-[360px] min-w-[260px] flex-col items-stretch gap-[22px] overflow-y-auto border-l border-line bg-white px-7 pt-21 pb-8 text-left text-[18px] shadow-[-14px_0_34px_rgba(23,20,15,0.16)]",
+            "desktop:static desktop:z-auto desktop:ml-auto desktop:h-auto desktop:w-auto desktop:max-w-none desktop:min-w-0 desktop:flex-row desktop:items-center desktop:gap-[26px] desktop:overflow-visible desktop:border-0 desktop:bg-transparent desktop:p-0 desktop:text-[15px] desktop:font-semibold desktop:shadow-none",
             "flex [transform:translateX(100%)] desktop:[transform:none]",
-            open && "[transform:translateX(0)]",
           )}
           id="mainNav"
+          initial={false}
+          // Antes de hidratar no se toca el transform: manda la clase, que ya
+          // deja el cajon fuera de pantalla en movil y en su sitio en escritorio.
+          animate={known ? { x: isDrawer && !open ? "100%" : 0 } : undefined}
+          transition={animar ? SPRING_PANEL : { duration: 0 }}
         >
           <button
             className="absolute top-[18px] right-5 h-10 w-10 cursor-pointer border-0 bg-transparent p-0 text-[30px] leading-none text-ink desktop:hidden"
@@ -115,40 +138,51 @@ export default function SiteHeader({ home = false }: { home?: boolean }) {
           <Link href="/contacto" className={NAV_LINK} onClick={close}>
             Contacto
           </Link>
-        </nav>
+        </motion.nav>
 
-        <a
+        <MotionA
           href={`${base}#ruge`}
           className={cn(
             btn(),
             "ml-3 hidden px-[22px] py-2.5 text-[14px] whitespace-nowrap desktop:inline-block",
           )}
           onClick={goSection("ruge")}
+          {...lift}
         >
           Club VIP
-        </a>
+        </MotionA>
 
-        <button
+        <motion.button
           className="ml-auto flex h-8 w-8 cursor-pointer flex-col justify-center gap-[5px] border-0 bg-transparent p-0 desktop:hidden"
           id="navToggle"
           aria-label="Abrir menú"
           aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => {
+            setAnimar(true);
+            setOpen((v) => !v);
+          }}
+          whileTap={{ scale: 0.88 }}
+          transition={SPRING_TAP}
         >
           <span className="block h-0.5 rounded-[2px] bg-ink" />
           <span className="block h-0.5 rounded-[2px] bg-ink" />
           <span className="block h-0.5 rounded-[2px] bg-ink" />
-        </button>
+        </motion.button>
       </Container>
 
-      <div
-        className={cn(
-          "fixed top-0 left-0 z-110 h-[100dvh] w-full bg-[rgba(23,20,15,0.45)] transition-opacity duration-[0.28s] ease-[ease] desktop:hidden",
-          open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
-        )}
-        onClick={close}
-        aria-hidden="true"
-      />
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            className="fixed top-0 left-0 z-110 h-[100dvh] w-full bg-[rgba(23,20,15,0.45)] desktop:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={FADE}
+            onClick={close}
+            aria-hidden="true"
+          />
+        ) : null}
+      </AnimatePresence>
     </header>
   );
 }

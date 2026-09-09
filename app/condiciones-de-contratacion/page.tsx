@@ -23,9 +23,7 @@ export default function CondicionesDeContratacion() {
 
       <main className={SECTION} id="condiciones-de-contratacion">
         <LegalContainer>
-          <h1 className={HEADING}>
-            Condiciones generales de contratación
-          </h1>
+          <h1 className={HEADING}>Condiciones generales de contratación</h1>
 
           <p className={LEGAL_INTRO}>
             El presente documento regula las Condiciones Generales de
@@ -42,8 +40,8 @@ export default function CondicionesDeContratacion() {
             <h3>1. Identificación del prestador</h3>
             <ul>
               <li>
-                <strong>Titular:</strong> Manuel Palop Pérez (en adelante,
-                «Manu Palop»)
+                <strong>Titular:</strong> Manuel Palop Pérez (en adelante, «Manu
+                Palop»)
               </li>
               <li>
                 <strong>NIF:</strong> 51102118M
@@ -181,9 +179,7 @@ export default function CondicionesDeContratacion() {
               necesidad de justificación.
             </p>
             <p>
-              <strong>
-                Excepción legal aplicable al contenido digital:
-              </strong>{" "}
+              <strong>Excepción legal aplicable al contenido digital:</strong>{" "}
               De conformidad con el artículo 103, letra m) del citado texto
               legal, el derecho de desistimiento no será aplicable al suministro
               de contenido digital que no se preste en un soporte material

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { MotionButton } from "@/components/motion/primitives";
+import { lift } from "@/components/motion/config";
 import { btn } from "@/lib/site-ui";
 import { cn } from "@/lib/utils";
 
@@ -79,23 +81,19 @@ export default function ContactForm() {
       </label>
       <label className={FIELD}>
         Mensaje
-        <textarea
-          className={INPUT}
-          name="mensaje"
-          rows={4}
-          required
-        ></textarea>
+        <textarea className={INPUT} name="mensaje" rows={4} required></textarea>
       </label>
-      <button
+      <MotionButton
         type="submit"
         className={cn(
           btn(),
           "mx-0 mt-1 block w-fit disabled:cursor-not-allowed disabled:opacity-60 desktop:mx-auto",
         )}
         disabled={sending}
+        {...lift}
       >
         {sending ? "Enviando…" : "Enviar mensaje"}
-      </button>
+      </MotionButton>
       <p
         className={status.cls}
         id="contactNote"
