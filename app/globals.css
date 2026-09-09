@@ -1,25 +1,20 @@
 /* =========================================================
-   Tailwind v4 + shadcn, sin tocar el diseno existente.
+   Tailwind v4 + shadcn.
 
-   Tres cosas de la instalacion por defecto cambiarian el diseno y por eso
-   no estan aqui:
-     1. Preflight (el reset de Tailwind) reescribiria titulares, listas y
-        botones. Importamos solo el tema y las utilidades.
-     2. El bloque "@layer base" de shadcn repinta body con sus colores y
-        pone su tipografia en html.
-     3. La fuente Geist que shadcn anade en layout.tsx. El sitio usa Inter.
+   Dos cosas de la instalacion por defecto no estan aqui porque
+   cambiarian el diseno:
+     1. Preflight (el reset de Tailwind) reescribiria titulares,
+        listas y botones. site.css trae el reset minimo del sitio.
+     2. El bloque "@layer base" de shadcn repinta body con sus
+        colores y pone su tipografia en html.
 
-   Orden de capas: site.css va la ultima, por encima de las utilidades de
-   Tailwind. Hace falta porque Tailwind trae su propia clase "container" que
-   pisaba la del sitio (max-width 1280px en vez de 1140px). Con este orden
-   tambien gana el sitio en --accent, --border y --radius, que shadcn define
-   con los mismos nombres, y sus componentes heredan la paleta naranja.
-
-   Efecto secundario: sobre un elemento que ya lleve una clase del sitio, una
-   utilidad de Tailwind que toque la misma propiedad no se aplica. La salida
-   es el modificador important de Tailwind (mt-4!), que gana a cualquier capa.
+   Orden de capas: "site" va despues de "shadcn" para que la paleta
+   del sitio gane en --accent, --border y --radius (shadcn define
+   esos mismos nombres, y sus componentes heredan la naranja).
+   "utilities" va la ultima para que cualquier clase de Tailwind
+   gane al reset de elementos de site.css.
    ========================================================= */
-@layer theme, shadcn, components, utilities, site;
+@layer theme, shadcn, components, site, utilities;
 
 @import "tailwindcss/theme.css" layer(theme);
 @import "tw-animate-css";
@@ -29,8 +24,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: var(--font-sans);
-    --font-sans: var(--font-sans);
+    --font-heading: var(--font);
+    --font-sans: var(--font);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -69,6 +64,28 @@
     --radius-2xl: calc(var(--radius) * 1.8);
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* La paleta del sitio, expuesta como utilidades: bg-surface-alt,
+   text-ink-muted, border-line, rounded-card... */
+@theme inline {
+    --color-brand: var(--accent);
+    --color-brand-dark: var(--accent-dark);
+    --color-brand-soft: var(--accent-soft);
+    --color-on-brand: var(--on-accent);
+    --color-surface: var(--bg);
+    --color-surface-alt: var(--bg-alt);
+    --color-ink: var(--text);
+    --color-ink-muted: var(--text-muted);
+    --color-line: var(--border);
+    --radius-card: var(--radius);
+}
+
+/* Los dos cortes del diseno original: @media (max-width: 620px) y
+   (max-width: 900px), escritos en mobile-first. */
+@theme {
+    --breakpoint-tablet: 621px;
+    --breakpoint-desktop: 901px;
 }
 
 @layer shadcn {

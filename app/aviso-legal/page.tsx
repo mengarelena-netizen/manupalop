@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import {
+  LegalBlock,
+  LegalCard,
+  LegalContainer,
+  LEGAL_INTRO,
+} from "@/components/Legal";
+import { HEADING, SECTION } from "@/lib/site-ui";
 
 export const metadata: Metadata = {
   title: "Aviso legal | Manu Palop",
@@ -14,18 +21,18 @@ export default function AvisoLegal() {
     <>
       <SiteHeader />
 
-      <main className="section" id="aviso-legal">
-        <div className="container legal-container">
-          <h1 className="section-title">Aviso legal</h1>
+      <main className={SECTION} id="aviso-legal">
+        <LegalContainer>
+          <h1 className={HEADING}>Aviso legal</h1>
 
-          <p className="legal-intro">
+          <p className={LEGAL_INTRO}>
             En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio,
             de Servicios de la Sociedad de la Información y de Comercio
             Electrónico (LSSI-CE), se exponen a continuación los datos
             identificativos del titular del sitio web:
           </p>
 
-          <div className="legal-card">
+          <LegalCard>
             <h3>Datos identificativos del titular</h3>
             <ul>
               <li>
@@ -47,9 +54,9 @@ export default function AvisoLegal() {
                 <a href="mailto:hola@manupalop.com">hola@manupalop.com</a>
               </li>
             </ul>
-          </div>
+          </LegalCard>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>1. Objeto</h2>
             <p>
               El presente Aviso Legal regula el acceso, navegación y uso del
@@ -65,9 +72,9 @@ export default function AvisoLegal() {
               todas y cada una de las disposiciones incluidas en este documento
               desde el momento en que se accede al portal.
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>2. Condiciones de uso y obligaciones del usuario</h2>
             <p>
               El Usuario se compromete a hacer un uso diligente, correcto y
@@ -97,9 +104,9 @@ export default function AvisoLegal() {
                 electrónico o áreas privadas de otros usuarios.
               </li>
             </ul>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>3. Propiedad intelectual e industrial</h2>
             <p>
               Todos los elementos que forman el sitio web (diseños, logotipos,
@@ -115,9 +122,9 @@ export default function AvisoLegal() {
               fines comerciales o de lucro sin la autorización previa, expresa y
               por escrito de Manuel Palop Pérez.
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>4. Exención de responsabilidad</h2>
             <ul>
               <li>
@@ -149,9 +156,9 @@ export default function AvisoLegal() {
                 perjuicios que pudieran derivarse de su acceso o uso.
               </li>
             </ul>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>5. Enlaces hacia manupalop.com</h2>
             <p>
               Se autoriza el establecimiento de hipervínculos hacia este sitio
@@ -161,9 +168,9 @@ export default function AvisoLegal() {
               dentro de otro marco ajeno) o cualquier manifestación falsa,
               inexacta o lesiva sobre Manu Palop o sus servicios.
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>6. Legislación aplicable y jurisdicción</h2>
             <p>
               Para la resolución de todas las controversias o cuestiones
@@ -177,9 +184,9 @@ export default function AvisoLegal() {
               los legalmente determinados por la normativa de protección de los
               consumidores y usuarios.
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>Documentos relacionados</h2>
             <ul>
               <li>
@@ -196,8 +203,8 @@ export default function AvisoLegal() {
                 </Link>
               </li>
             </ul>
-          </div>
-        </div>
+          </LegalBlock>
+        </LegalContainer>
       </main>
 
       <SiteFooter />

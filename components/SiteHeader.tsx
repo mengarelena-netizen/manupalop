@@ -2,6 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Container from "@/components/Container";
+import { btn } from "@/lib/site-ui";
+import { cn } from "@/lib/utils";
+
+const NAV_LINK = "block whitespace-nowrap hover:text-brand-dark";
 
 /** Cabecera con el menu movil. Sustituye al bloque "Menu movil" de script.js. */
 export default function SiteHeader({ home = false }: { home?: boolean }) {
@@ -55,59 +60,92 @@ export default function SiteHeader({ home = false }: { home?: boolean }) {
     };
 
   return (
-    <header className="site-header" id="top">
-      <div className="container header-inner">
-        <Link href="/" className="logo" onClick={goTop}>
-          MANU <span>PALOP</span>
+    <header
+      className="sticky top-0 z-100 border-b border-line transition-[top] duration-[0.35s] ease-[ease] before:absolute before:inset-0 before:-z-10 before:bg-[rgba(255,255,255,0.92)] before:backdrop-blur-[8px] before:content-[''] motion-reduce:transition-none"
+      id="top"
+    >
+      <Container className="flex h-[var(--header-h)] max-w-[1024px] items-center gap-6">
+        <Link
+          href="/"
+          className="text-[20px] font-extrabold tracking-[0.02em] whitespace-nowrap"
+          onClick={goTop}
+        >
+          MANU <span className="text-brand">PALOP</span>
         </Link>
 
-        <nav className={`main-nav${open ? " open" : ""}`} id="mainNav">
-          <button className="nav-close" aria-label="Cerrar menú" onClick={close}>
+        <nav
+          className={cn(
+            "fixed top-0 right-0 left-auto z-120 h-[100dvh] w-[65%] max-w-[360px] min-w-[260px] flex-col items-stretch gap-[22px] overflow-y-auto border-l border-line bg-white px-7 pt-21 pb-8 text-left text-[18px] shadow-[-14px_0_34px_rgba(23,20,15,0.16)] transition-transform duration-[0.28s] ease-[ease]",
+            "desktop:static desktop:z-auto desktop:ml-auto desktop:h-auto desktop:w-auto desktop:max-w-none desktop:min-w-0 desktop:flex-row desktop:items-center desktop:gap-[26px] desktop:overflow-visible desktop:border-0 desktop:bg-transparent desktop:p-0 desktop:text-[15px] desktop:font-semibold desktop:shadow-none desktop:transition-none",
+            "flex [transform:translateX(100%)] desktop:[transform:none]",
+            open && "[transform:translateX(0)]",
+          )}
+          id="mainNav"
+        >
+          <button
+            className="absolute top-[18px] right-5 h-10 w-10 cursor-pointer border-0 bg-transparent p-0 text-[30px] leading-none text-ink desktop:hidden"
+            aria-label="Cerrar menú"
+            onClick={close}
+          >
             &times;
           </button>
-          <Link href="/" onClick={goTop}>
+          <Link href="/" className={NAV_LINK} onClick={goTop}>
             Home
           </Link>
-          <a href={`${base}#ruge`} onClick={goSection("ruge")}>
+          <a
+            href={`${base}#ruge`}
+            className={NAV_LINK}
+            onClick={goSection("ruge")}
+          >
             Club VIP
           </a>
-          <a href={`${base}#testimonios`} onClick={goSection("testimonios")}>
+          <a
+            href={`${base}#testimonios`}
+            className={NAV_LINK}
+            onClick={goSection("testimonios")}
+          >
             Testimonios
           </a>
-          <Link href="/diario" onClick={close}>
+          <Link href="/diario" className={NAV_LINK} onClick={close}>
             Diario
           </Link>
-          <Link href="/libro" onClick={close}>
+          <Link href="/libro" className={NAV_LINK} onClick={close}>
             Mi libro
           </Link>
-          <Link href="/contacto" onClick={close}>
+          <Link href="/contacto" className={NAV_LINK} onClick={close}>
             Contacto
           </Link>
         </nav>
 
         <a
           href={`${base}#ruge`}
-          className="btn btn-accent nav-cta"
+          className={cn(
+            btn(),
+            "ml-3 hidden px-[22px] py-2.5 text-[14px] whitespace-nowrap desktop:inline-block",
+          )}
           onClick={goSection("ruge")}
         >
           Club VIP
         </a>
 
         <button
-          className="nav-toggle"
+          className="ml-auto flex h-8 w-8 cursor-pointer flex-col justify-center gap-[5px] border-0 bg-transparent p-0 desktop:hidden"
           id="navToggle"
           aria-label="Abrir menú"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <span className="block h-0.5 rounded-[2px] bg-ink" />
+          <span className="block h-0.5 rounded-[2px] bg-ink" />
+          <span className="block h-0.5 rounded-[2px] bg-ink" />
         </button>
-      </div>
+      </Container>
 
       <div
-        className={`nav-backdrop${open ? " open" : ""}`}
+        className={cn(
+          "fixed top-0 left-0 z-110 h-[100dvh] w-full bg-[rgba(23,20,15,0.45)] transition-opacity duration-[0.28s] ease-[ease] desktop:hidden",
+          open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
+        )}
         onClick={close}
         aria-hidden="true"
       />

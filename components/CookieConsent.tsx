@@ -2,10 +2,17 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { btn } from "@/lib/site-ui";
+import { cn } from "@/lib/utils";
 
 const STORAGE_KEY = "manupalop-cookie-consent";
 const OPEN_EVENT = "manupalop:abrir-cookies";
 const CHANGE_EVENT = "manupalop:cookies";
+
+const BANNER_BTN = "px-[22px] py-[11px] text-[14px] max-tablet:flex-auto max-tablet:text-center";
+const OPCION = "flex cursor-pointer items-start gap-3";
+const CHECKBOX =
+  "mx-0 mt-0.5 mb-0 h-[18px] w-[18px] flex-none accent-brand disabled:cursor-not-allowed";
 
 export type CookieConsent = {
   necesarias: true;
@@ -108,43 +115,64 @@ export default function CookieConsent() {
 
   return (
     <div
-      className="cookie-banner"
+      className="fixed inset-x-0 top-auto bottom-0 z-300 border-t border-line bg-surface pt-5 pb-[calc(20px_+_env(safe-area-inset-bottom))] shadow-[0_-12px_40px_rgba(10,8,6,0.14)]"
       role="dialog"
       aria-labelledby="cookie-banner-titulo"
     >
-      <div className="cookie-banner-inner">
-        <div className="cookie-banner-texto">
-          <h2 id="cookie-banner-titulo">Cookies en manupalop.com</h2>
-          <p>
+      <div className="mx-auto flex max-w-[980px] flex-col items-stretch gap-4 px-[18px] tablet:flex-row tablet:items-center tablet:gap-x-8 tablet:gap-y-6 tablet:px-6">
+        <div className="min-w-0 flex-auto">
+          <h2
+            id="cookie-banner-titulo"
+            className="mx-0 mt-0 mb-1.5 text-[17px] font-bold"
+          >
+            Cookies en manupalop.com
+          </h2>
+          <p className="m-0 text-[14px] leading-[1.6] text-ink-muted">
             Usamos cookies técnicas necesarias para que la web funcione y, solo
             si las aceptas, cookies analíticas para entender cómo se usa el
             sitio. Puedes aceptarlas, rechazarlas o configurarlas. Más
             información en la{" "}
-            <Link href="/politica-de-cookies">Política de cookies</Link>.
+            <Link
+              href="/politica-de-cookies"
+              className="text-brand-dark underline"
+            >
+              Política de cookies
+            </Link>
+            .
           </p>
 
           {ajustes ? (
-            <div className="cookie-opciones">
-              <label className="cookie-opcion">
-                <input type="checkbox" checked disabled />
-                <span>
-                  <strong>Cookies técnicas o necesarias</strong>
-                  <em>
+            <div className="mt-[18px] grid gap-3.5 border-t border-line pt-4">
+              <label className={OPCION}>
+                <input
+                  type="checkbox"
+                  className={CHECKBOX}
+                  checked
+                  disabled
+                />
+                <span className="grid gap-0.5">
+                  <strong className="text-[14px] text-ink">
+                    Cookies técnicas o necesarias
+                  </strong>
+                  <em className="text-[13px] leading-[1.55] text-ink-muted not-italic">
                     Imprescindibles para la navegación, la seguridad y el
                     proceso de pago. Están exentas de consentimiento y no pueden
                     desactivarse.
                   </em>
                 </span>
               </label>
-              <label className="cookie-opcion">
+              <label className={OPCION}>
                 <input
                   type="checkbox"
+                  className={CHECKBOX}
                   checked={analiticas}
                   onChange={(e) => setAnaliticas(e.target.checked)}
                 />
-                <span>
-                  <strong>Cookies analíticas o de medición</strong>
-                  <em>
+                <span className="grid gap-0.5">
+                  <strong className="text-[14px] text-ink">
+                    Cookies analíticas o de medición
+                  </strong>
+                  <em className="text-[13px] leading-[1.55] text-ink-muted not-italic">
                     Nos permiten medir visitas y contenidos más leídos de forma
                     agregada (Google Analytics). Solo se instalan si las
                     aceptas.
@@ -155,11 +183,11 @@ export default function CookieConsent() {
           ) : null}
         </div>
 
-        <div className="cookie-banner-acciones">
+        <div className="flex flex-none flex-wrap items-center gap-x-3 gap-y-2.5">
           {ajustes ? (
             <button
               type="button"
-              className="btn btn-accent"
+              className={cn(btn(), BANNER_BTN)}
               onClick={() => guardar(analiticas)}
             >
               Guardar preferencias
@@ -168,21 +196,21 @@ export default function CookieConsent() {
             <>
               <button
                 type="button"
-                className="btn btn-accent"
+                className={cn(btn(), BANNER_BTN)}
                 onClick={() => guardar(true)}
               >
                 Aceptar todas
               </button>
               <button
                 type="button"
-                className="btn btn-outline"
+                className={cn(btn({ variant: "outline" }), BANNER_BTN)}
                 onClick={() => guardar(false)}
               >
                 Rechazar
               </button>
               <button
                 type="button"
-                className="cookie-link"
+                className="cursor-pointer border-0 bg-transparent p-1 font-sans text-[14px] font-semibold text-ink-muted underline hover:text-brand-dark max-tablet:flex-[1_1_100%] max-tablet:text-center"
                 onClick={() => setAjustes(true)}
               >
                 Configurar

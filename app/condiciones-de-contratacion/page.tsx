@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import {
+  LegalBlock,
+  LegalCard,
+  LegalContainer,
+  LEGAL_INTRO,
+} from "@/components/Legal";
+import { HEADING, SECTION } from "@/lib/site-ui";
 
 export const metadata: Metadata = {
   title: "Condiciones generales de contratación | Manu Palop",
@@ -14,13 +21,13 @@ export default function CondicionesDeContratacion() {
     <>
       <SiteHeader />
 
-      <main className="section" id="condiciones-de-contratacion">
-        <div className="container legal-container">
-          <h1 className="section-title">
+      <main className={SECTION} id="condiciones-de-contratacion">
+        <LegalContainer>
+          <h1 className={HEADING}>
             Condiciones generales de contratación
           </h1>
 
-          <p className="legal-intro">
+          <p className={LEGAL_INTRO}>
             El presente documento regula las Condiciones Generales de
             Contratación aplicables a la adquisición de membresías, programas y
             suscripciones al Club VIP a través del sitio web{" "}
@@ -31,7 +38,7 @@ export default function CondicionesDeContratacion() {
             <Link href="/politica-de-privacidad">Política de Privacidad</Link>.
           </p>
 
-          <div className="legal-card">
+          <LegalCard>
             <h3>1. Identificación del prestador</h3>
             <ul>
               <li>
@@ -53,9 +60,9 @@ export default function CondicionesDeContratacion() {
                 <a href="mailto:hola@manupalop.com">hola@manupalop.com</a>
               </li>
             </ul>
-          </div>
+          </LegalCard>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>2. Objeto y descripción del servicio</h2>
             <p>
               A través del sitio web se ofrece acceso al Club VIP, un servicio
@@ -63,9 +70,9 @@ export default function CondicionesDeContratacion() {
               incluye acceso a una comunidad privada, rutinas personalizadas de
               ejercicio/hábitos y contenidos exclusivos.
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>3. Proceso de compra y alta en el servicio</h2>
             <ul>
               <li>
@@ -85,9 +92,9 @@ export default function CondicionesDeContratacion() {
                 en que se valida el cobro.
               </li>
             </ul>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>4. Precios, impuestos y facturación</h2>
             <ul>
               <li>
@@ -108,9 +115,9 @@ export default function CondicionesDeContratacion() {
                 <a href="mailto:hola@manupalop.com">hola@manupalop.com</a>.
               </li>
             </ul>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>5. Duración, pasarela de pago y renovaciones</h2>
             <ul>
               <li>
@@ -134,9 +141,9 @@ export default function CondicionesDeContratacion() {
                 deseo de no renovar con anterioridad.
               </li>
             </ul>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>6. Cancelación de la suscripción y bajas</h2>
             <ul>
               <li>
@@ -162,9 +169,9 @@ export default function CondicionesDeContratacion() {
                 parciales por los días u horas restantes del ciclo en curso.
               </li>
             </ul>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>7. Derecho de desistimiento y renuncia informada</h2>
             <p>
               Conforme al artículo 102 del Real Decreto Legislativo 1/2007 (Ley
@@ -192,9 +199,9 @@ export default function CondicionesDeContratacion() {
               </strong>
               .
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>8. Propiedad intelectual de los materiales</h2>
             <p>
               Todos los materiales, audios, textos, descargables, clases y
@@ -209,9 +216,9 @@ export default function CondicionesDeContratacion() {
               comunicación pública, reventa o grabación de los contenidos sin
               autorización previa y por escrito de Manu Palop.
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>9. Descargo de responsabilidad</h2>
             <p>
               Los contenidos formativos, análisis y reflexiones compartidos en
@@ -225,9 +232,9 @@ export default function CondicionesDeContratacion() {
               El Cliente asume toda la responsabilidad sobre las decisiones o
               acciones que emprenda.
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>10. Resolución de conflictos y legislación aplicable</h2>
             <p>
               Las presentes condiciones se rigen en todos sus extremos por la
@@ -252,9 +259,9 @@ export default function CondicionesDeContratacion() {
               someten a los juzgados y tribunales competentes de conformidad con
               la legislación de consumidores y usuarios aplicable.
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>Documentos relacionados</h2>
             <ul>
               <li>
@@ -269,8 +276,8 @@ export default function CondicionesDeContratacion() {
                 <Link href="/politica-de-cookies">Política de cookies</Link>
               </li>
             </ul>
-          </div>
-        </div>
+          </LegalBlock>
+        </LegalContainer>
       </main>
 
       <SiteFooter />

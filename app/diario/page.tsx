@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import Container from "@/components/Container";
+import { LEAD, SECTION } from "@/lib/site-ui";
 
 export const metadata: Metadata = {
   title: "Diario de un ex-Gordo | Manu Palop",
@@ -13,16 +15,17 @@ export default function Diario() {
     <>
       <SiteHeader />
 
-      <section className="section" id="diario">
-        <div className="container diario-inner">
+      <section className={SECTION} id="diario">
+        <Container className="flex flex-col items-start text-left desktop:items-center desktop:text-center">
           <h2>Diario de un ex-Gordo</h2>
-          <p className="section-lead">
-            Apúntate gratis para recibir consejos reales para transformar tu mente
-            y tu cuerpo, directamente en tu correo.
+          <p className={LEAD}>
+            Apúntate gratis para recibir consejos reales para transformar tu
+            mente y tu cuerpo, directamente en tu correo.
           </p>
           {/* Suscripcion gestionada por Substack */}
-          <div className="diario-embed">
+          <div className="relative mx-auto mt-7 aspect-[480/150] w-full max-w-[480px] self-center overflow-hidden rounded-card bg-white [--embed-scale:calc(min(480px,100vw_-_48px)/480px)] after:pointer-events-none after:absolute after:inset-0 after:rounded-card after:border after:border-line after:content-['']">
             <iframe
+              className="absolute top-0 left-0 block h-[150px] w-[480px] origin-top-left border-0 bg-white [transform:scale(var(--embed-scale))]"
               src="https://manupalop84.substack.com/embed"
               width="480"
               height="150"
@@ -34,11 +37,11 @@ export default function Diario() {
           </div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            className="diario-photo"
+            className="mx-auto mt-12 w-full max-w-[320px] self-center rounded-card border border-line"
             src="/images/ad-2.jpg"
             alt="Manu Palop, antes y después"
           />
-        </div>
+        </Container>
       </section>
 
       <SiteFooter />

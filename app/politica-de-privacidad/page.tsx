@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import {
+  LegalBlock,
+  LegalCard,
+  LegalContainer,
+  LEGAL_INTRO,
+} from "@/components/Legal";
+import { HEADING, SECTION } from "@/lib/site-ui";
 
 export const metadata: Metadata = {
   title: "Política de privacidad | Manu Palop",
@@ -14,18 +21,18 @@ export default function PoliticaDePrivacidad() {
     <>
       <SiteHeader />
 
-      <main className="section" id="politica-privacidad">
-        <div className="container legal-container">
-          <h1 className="section-title">Política de privacidad</h1>
+      <main className={SECTION} id="politica-privacidad">
+        <LegalContainer>
+          <h1 className={HEADING}>Política de privacidad</h1>
 
-          <p className="legal-intro">
+          <p className={LEGAL_INTRO}>
             En cumplimiento del Reglamento (UE) 2016/679 del Parlamento Europeo
             y del Consejo (RGPD) y de la Ley Orgánica 3/2018 (LOPDGDD), te
             informamos de forma transparente sobre el tratamiento de tus datos
             personales en <code>manupalop.com</code>.
           </p>
 
-          <div className="legal-card">
+          <LegalCard>
             <h3>1. Responsable del tratamiento</h3>
             <ul>
               <li>
@@ -47,9 +54,9 @@ export default function PoliticaDePrivacidad() {
                 divulgación online.
               </li>
             </ul>
-          </div>
+          </LegalCard>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>2. Datos recabados y origen</h2>
             <p>
               Recopilamos los datos estrictamente necesarios a través de:
@@ -79,9 +86,9 @@ export default function PoliticaDePrivacidad() {
                 <Link href="/politica-de-cookies">Política de Cookies</Link>).
               </li>
             </ul>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>3. Finalidad y legitimación del tratamiento</h2>
             <ul>
               <li>
@@ -117,9 +124,9 @@ export default function PoliticaDePrivacidad() {
                 </em>
               </li>
             </ul>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>4. Conservación de los datos</h2>
             <ul>
               <li>
@@ -138,9 +145,9 @@ export default function PoliticaDePrivacidad() {
                 legislación fiscal y civil española (mínimo 4 a 6 años).
               </li>
             </ul>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>5. Destinatarios y transferencias internacionales</h2>
             <p>
               No vendemos ni cedemos tus datos personales a terceros. Para
@@ -176,9 +183,9 @@ export default function PoliticaDePrivacidad() {
               Comisión Europea, garantizando un nivel de protección equivalente
               al exigido por el RGPD.
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>6. Derechos del usuario</h2>
             <p>Puedes ejercitar en cualquier momento tus derechos de:</p>
             <ul>
@@ -207,9 +214,9 @@ export default function PoliticaDePrivacidad() {
               </a>
               .
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>7. Seguridad de la información</h2>
             <p>
               Aplicamos medidas técnicas y organizativas adecuadas para proteger
@@ -218,9 +225,9 @@ export default function PoliticaDePrivacidad() {
               seguridad que entrañe un riesgo para tus derechos, te será
               notificada a la mayor brevedad conforme a la normativa vigente.
             </p>
-          </div>
+          </LegalBlock>
 
-          <div className="legal-block">
+          <LegalBlock>
             <h2>Documentos relacionados</h2>
             <ul>
               <li>
@@ -235,8 +242,8 @@ export default function PoliticaDePrivacidad() {
                 </Link>
               </li>
             </ul>
-          </div>
-        </div>
+          </LegalBlock>
+        </LegalContainer>
       </main>
 
       <SiteFooter />
