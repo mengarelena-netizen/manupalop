@@ -132,8 +132,8 @@ export default function SiteHeader({ home = false }: { home?: boolean }) {
           <Link href="/diario" className={NAV_LINK} onClick={close}>
             Diario
           </Link>
-          <Link href="/libro" className={NAV_LINK} onClick={close}>
-            Mi libro
+          <Link href="/temis" className={NAV_LINK} onClick={close}>
+            Temis
           </Link>
           <Link href="/contacto" className={NAV_LINK} onClick={close}>
             Contacto
