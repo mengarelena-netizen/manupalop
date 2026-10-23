@@ -13,9 +13,6 @@ const FIELD = "grid gap-2 text-[14px] font-semibold";
 const INPUT =
   "rounded-[8px] border border-line px-3.5 py-3 font-sans text-[15px] resize-y";
 
-/* El envio pasa por /api/contacto, que manda el correo con Resend. El
-   destinatario y el remitente se configuran con variables de entorno en
-   Vercel, no en este archivo. */
 export default function ContactForm() {
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState<Status>({ cls: NOTE, node: null });
