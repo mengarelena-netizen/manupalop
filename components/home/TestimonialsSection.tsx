@@ -1,9 +1,12 @@
 import Container from "@/components/Container";
 import VideoFacade from "@/components/VideoFacade";
+import TestimonialCarousel, {
+  type Testimonio,
+} from "@/components/home/TestimonialCarousel";
 import { HEADING, LEAD, SECTION } from "@/lib/site-ui";
 import { cn } from "@/lib/utils";
 
-const TESTIMONIOS = [
+const TESTIMONIOS: Testimonio[] = [
   {
     quote:
       "“Terminé el programa y no solo he visto cambios en mi cuerpo, sobre todo en la manera de relacionarme conmigo misma. Sigo en contacto con él porque es una gran fuente de inspiración”",
@@ -87,35 +90,11 @@ export default function TestimonialsSection() {
             </p>
           </div>
         </div>
-      </Container>
 
-      {/* Los testimonios pasan solos en bucle. La lista va dos veces para que
-          el -50% del desplazamiento cierre la vuelta sin salto; la copia queda
-          oculta para lectores de pantalla. */}
-      <div className="testimonial-marquee" data-reveal="">
-        <div className="testimonial-track">
-          {[false, true].map((copy) => (
-            <div
-              key={String(copy)}
-              className="testimonial-set"
-              aria-hidden={copy || undefined}
-            >
-              {TESTIMONIOS.map((t) => (
-                <blockquote
-                  key={t.name}
-                  className="m-0 flex w-[min(80vw,340px)] shrink-0 flex-col rounded-card bg-surface-alt p-7"
-                >
-                  <p className="mx-0 mt-0 mb-4 text-[16px]">{t.quote}</p>
-                  <cite className="mt-auto block font-bold not-italic">
-                    {t.name}{" "}
-                    <span className="font-normal text-ink-muted">{t.year}</span>
-                  </cite>
-                </blockquote>
-              ))}
-            </div>
-          ))}
+        <div data-reveal="">
+          <TestimonialCarousel items={TESTIMONIOS} />
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
