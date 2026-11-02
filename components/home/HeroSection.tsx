@@ -12,23 +12,24 @@ export default function HeroSection() {
             data-reveal=""
             data-reveal-first
           >
-            Perdí 60 kg. <br />
-            Ahora te enseño el camino.
+            Bajé 60 kg. Cambié mi mente. <br />Y transformé mi vida.
           </h1>
           <p className={SUB} data-reveal="">
-            Sin dietas milagro. Sin atajos. Solo un método probado, una
-            herramienta clave y el acompañamiento de alguien que ya estuvo
-            exactamente donde tú estás hoy.
+            Después de más de 20 años estuve atrapado en hábitos que no me
+            hacían feliz. Llegué a pesar 140 kg y a vivir con ansiedad
+            prácticamente cada día.
           </p>
           <p className={SUB} data-reveal="">
-            La pérdida de peso es solo lo que se ve en el espejo. La verdadera
-            transformación ocurre en tu cabeza: en cómo piensas, cómo respiras y
-            cómo te relacionas con la comida.
+            Hasta que entendí que el problema no estaba únicamente en lo que
+            comía, sino también en cómo pensaba, cómo gestionaba mis emociones y
+            cómo me relacionaba conmigo mismo.
           </p>
           <p className={SUB} data-reveal="">
-            Por eso no necesitas más fuerza de voluntad, necesitas reprogramar
-            la ansiedad y el hambre emocional desde la raíz. Solo así
-            conseguirás un cambio duradero.
+            Hoy quiero enseñarte el camino para que tú también puedas
+            transformar tu cuerpo y tu mente.
+          </p>
+          <p className="mb-3.5 text-[18px] font-bold text-ink" data-reveal="">
+            Tu cuerpo es el comienzo. Tu transformación es el destino.
           </p>
         </div>
       </div>

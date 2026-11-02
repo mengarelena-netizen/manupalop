@@ -13,12 +13,16 @@ export default function FinalCtaSection() {
         >
           Tu cambio empieza hoy.
         </h2>
-        <p
-          className="mx-auto mt-0 mb-8 max-w-[640px] font-sans text-[20px] font-medium text-on-brand not-italic"
+        <div
+          className="mx-auto mt-0 mb-8 flex max-w-[640px] flex-col gap-2 font-sans text-[20px] font-medium text-on-brand not-italic"
           data-reveal=""
         >
-          Deja de buscar atajos y aprende el camino.
-        </p>
+          <p className="m-0">
+            No necesitas esperar al lunes, al próximo mes o a tocar fondo.
+          </p>
+          <p className="m-0">No necesitas tenerlo todo resuelto.</p>
+          <p className="m-0">Solo necesitas tomar una decisión: empezar.</p>
+        </div>
         <div data-reveal="zoom">
           <CheckoutButton
             className={btn({ variant: "dark" })}

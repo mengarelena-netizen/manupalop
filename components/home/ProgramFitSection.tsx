@@ -4,14 +4,26 @@ import { CARD, LEAD, SECTION } from "@/lib/site-ui";
 import { cn } from "@/lib/utils";
 
 const ANTES: Photo[] = [
-  { src: "/images/opt/antes-1.webp", alt: "Manu Palop con 140 kg, en la playa" },
-  { src: "/images/opt/antes-2.webp", alt: "Manu Palop con 140 kg, en la escalera" },
-  { src: "/images/opt/antes-3.webp", alt: "Manu Palop con 140 kg, en la ciudad" },
+  {
+    src: "/images/opt/antes-1.webp",
+    alt: "Manu Palop con 140 kg, en la playa",
+  },
+  {
+    src: "/images/opt/antes-2.webp",
+    alt: "Manu Palop con 140 kg, en la escalera",
+  },
+  {
+    src: "/images/opt/antes-3.webp",
+    alt: "Manu Palop con 140 kg, en la ciudad",
+  },
   {
     src: "/images/opt/antes-4.webp",
     alt: "Manu Palop con 140 kg, en un acantilado",
   },
-  { src: "/images/opt/antes-5.webp", alt: "Manu Palop con 140 kg, junto a un faro" },
+  {
+    src: "/images/opt/antes-5.webp",
+    alt: "Manu Palop con 140 kg, junto a un faro",
+  },
   {
     src: "/images/opt/antes-6.webp",
     alt: "Manu Palop con 140 kg, en el estadio Bernabéu",
@@ -63,13 +75,20 @@ export default function ProgramFitSection() {
       <Container>
         <div className="mx-auto max-w-[780px] text-left">
           <h2 className="mb-6" data-reveal="">
-            El último programa de pérdida de peso que vas a contratar en tu vida
+            No es otro programa para adelgazar. Es una oportunidad para lograr
+            la vida que quieres.
           </h2>
-          <p className={LEAD} data-reveal="">
-            El objetivo de RUGE no es que dependas de mí de por vida, sino darte
-            las herramientas y el acompañamiento para que dentro de 12 meses ya
-            no me necesites.
-          </p>
+          <div className={cn(LEAD, "flex flex-col gap-4")} data-reveal="">
+            <p className="m-0">
+              El objetivo de mi Club VIP no es que dependas de mí de por vida.
+              Es ayudarte a cambiar tu relación con el cuerpo, la comida y
+              contigo mismo. Que aprendas a gestionar tus hábitos, trabajar tu
+              mentalidad y tomar las riendas.
+            </p>
+            <p className="m-0">
+              Quiero que dentro de 12 meses ya no me necesites.
+            </p>
+          </div>
 
           <div className="mt-10 mb-12 grid grid-cols-1 gap-5 text-left tablet:grid-cols-2">
             <div
@@ -80,8 +99,8 @@ export default function ProgramFitSection() {
                 NO es para ti si:
               </p>
               <p className={FIT_TEXT}>
-                Buscas perder 10 kg en 2 semanas pasando hambre o tomando una
-                pastilla mágica.
+                Buscas resultados inmediatos, soluciones mágicas o perder peso
+                sin cambiar nada de tu forma de actuar.
               </p>
             </div>
             <div
@@ -92,8 +111,8 @@ export default function ProgramFitSection() {
                 SÍ es para ti si:
               </p>
               <p className={FIT_TEXT}>
-                Estás dispuesto a mirar hacia adentro, trabajar tus emociones y
-                comprometerte con tu mejor versión.
+                Estás dispuesto a mirarte por dentro, cuestionar aquello que te
+                limita y comprometerte.
               </p>
             </div>
           </div>
@@ -103,7 +122,7 @@ export default function ProgramFitSection() {
             data-reveal=""
           >
             Mira cómo ha cambiado mi vida e imagina todo lo que puedes conseguir
-            si empiezas ahora:
+            si empiezas a trabajar en la tuya.
           </p>
         </div>
 

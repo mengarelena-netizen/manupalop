@@ -51,17 +51,24 @@ export default function TestimonialsSection() {
             className={cn(HEADING, "text-left desktop:text-center")}
             data-reveal=""
           >
-            Ellos han confiado en mí
+            Ellos han confiado en mí y lo han conseguido
           </h2>
-          <p
+          <div
             className={cn(
               LEAD,
-              "mx-0 text-left desktop:mx-auto desktop:text-center",
+              "mx-0 flex flex-col gap-4 text-left desktop:mx-auto desktop:text-center",
             )}
             data-reveal=""
           >
-            Y yo les he ayudado a transformar sus vidas.
-          </p>
+            <p className="m-0">
+              Cada persona tiene su propia historia, sus propios obstáculos y su
+              propio camino.
+            </p>
+            <p className="m-0">
+              Estas son algunas de las personas que han decidido dar el paso y
+              empezar a trabajar en sí mismas.
+            </p>
+          </div>
 
           <div
             className="mx-auto mt-10 mb-14 flex max-w-[820px] flex-col items-center rounded-[24px] border border-line bg-surface-alt px-4 pt-7 pb-6 tablet:px-6 tablet:pt-11 tablet:pb-8"
@@ -80,23 +87,35 @@ export default function TestimonialsSection() {
             </p>
           </div>
         </div>
+      </Container>
 
-        <div className="grid grid-cols-1 gap-6 tablet:grid-cols-2">
-          {TESTIMONIOS.map((t) => (
-            <blockquote
-              key={t.name}
-              className="m-0 rounded-card bg-surface-alt p-7"
-              data-reveal=""
+      {/* Los testimonios pasan solos en bucle. La lista va dos veces para que
+          el -50% del desplazamiento cierre la vuelta sin salto; la copia queda
+          oculta para lectores de pantalla. */}
+      <div className="testimonial-marquee" data-reveal="">
+        <div className="testimonial-track">
+          {[false, true].map((copy) => (
+            <div
+              key={String(copy)}
+              className="testimonial-set"
+              aria-hidden={copy || undefined}
             >
-              <p className="mx-0 mt-0 mb-4 text-[16px]">{t.quote}</p>
-              <cite className="block font-bold not-italic">
-                {t.name}{" "}
-                <span className="font-normal text-ink-muted">{t.year}</span>
-              </cite>
-            </blockquote>
+              {TESTIMONIOS.map((t) => (
+                <blockquote
+                  key={t.name}
+                  className="m-0 flex w-[min(80vw,340px)] shrink-0 flex-col rounded-card bg-surface-alt p-7"
+                >
+                  <p className="mx-0 mt-0 mb-4 text-[16px]">{t.quote}</p>
+                  <cite className="mt-auto block font-bold not-italic">
+                    {t.name}{" "}
+                    <span className="font-normal text-ink-muted">{t.year}</span>
+                  </cite>
+                </blockquote>
+              ))}
+            </div>
           ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

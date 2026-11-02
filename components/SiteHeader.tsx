@@ -52,7 +52,7 @@ export default function SiteHeader({ home = false }: { home?: boolean }) {
   const afterMenuCloses = (fn: () => void) =>
     requestAnimationFrame(() => requestAnimationFrame(fn));
 
-  // En la home, "Home" y el logo suben a la primera seccion en vez de recargar.
+  // En la home, "Inicio" y el logo suben a la primera seccion en vez de recargar.
   const goTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
     close();
     if (!home) return;
@@ -113,27 +113,27 @@ export default function SiteHeader({ home = false }: { home?: boolean }) {
             &times;
           </button>
           <Link href="/" className={NAV_LINK} onClick={goTop}>
-            Home
+            Inicio
           </Link>
           <a
             href={`${base}#ruge`}
             className={NAV_LINK}
             onClick={goSection("ruge")}
           >
-            Club VIP
+            Trabaja conmigo
           </a>
           <a
             href={`${base}#testimonios`}
             className={NAV_LINK}
             onClick={goSection("testimonios")}
           >
-            Testimonios
+            Transformaciones
           </a>
           <Link href="/diario" className={NAV_LINK} onClick={close}>
-            Diario
+            Aprende
           </Link>
           <Link href="/temis" className={NAV_LINK} onClick={close}>
-            Temis
+            Método TEMIS
           </Link>
           <Link href="/contacto" className={NAV_LINK} onClick={close}>
             Contacto
@@ -144,7 +144,9 @@ export default function SiteHeader({ home = false }: { home?: boolean }) {
           href={`${base}#ruge`}
           className={cn(
             btn(),
-            "ml-3 hidden px-[22px] py-2.5 text-[14px] whitespace-nowrap desktop:inline-block",
+            // Entre 901 y 1023px no cabe junto al menu; "Trabaja conmigo" ya
+            // lleva al mismo sitio.
+            "ml-3 hidden px-[22px] py-2.5 text-[14px] whitespace-nowrap lg:inline-block",
           )}
           onClick={goSection("ruge")}
           {...lift}
