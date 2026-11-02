@@ -32,32 +32,20 @@ export default function AboutSection() {
   return (
     <section className={SECTION} id="quien-soy">
       <Container>
-        <p
-          className={cn(LEAD, "mt-0 mb-6 max-w-none desktop:mb-8")}
-          data-reveal=""
-        >
-          Pasé dos décadas con obesidad probando todos los métodos del mercado,
-          hasta que entendí que la solución no estaba ahí fuera, sino aquí
-          dentro.
-        </p>
         {/* El texto va primero en el DOM y en pantalla: escritorio a la
             izquierda, movil arriba. Antes iba detras con order-1 y la foto
             se animaba antes que el texto que tiene al lado. */}
         <div className="grid grid-cols-1 items-center gap-10 desktop:grid-cols-[1.3fr_1fr]">
           <div className="grid gap-6">
             <p className={TEXT_LEAD} data-reveal="">
-              Un método y una herramienta para llegar a mi subconsciente me
-              permitieron bajar 60 kg y cambiar para siempre mi relación con la
-              comida y con mi cuerpo.
+              La <strong>respiración consciente</strong> fue una de las
+              herramientas que marcó un antes y un después en mi proceso. Me
+              ayudó a tomar conciencia de mis patrones, de mis emociones y de mi
+              relación con la comida.
             </p>
             <p className={TEXT_LEAD} data-reveal="">
-              La <strong>respiración consciente</strong> fue el punto de
-              inflexión: la herramienta que me permitió romper el ciclo de
-              ansiedad y hambre emocional.
-            </p>
-            <p className={TEXT_LEAD} data-reveal="">
-              Hoy dedico mi trabajo a acompañar a otras personas en ese mismo
-              camino.
+              Hoy comparto todo lo que he aprendido para ayudar a otras personas
+              a conseguir una transformación que vaya mucho más allá del espejo.
             </p>
           </div>
           <div

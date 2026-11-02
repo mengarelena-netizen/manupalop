@@ -10,9 +10,19 @@ import ProgramFitSection from "@/components/home/ProgramFitSection";
 import FinalCtaSection from "@/components/home/FinalCtaSection";
 
 export const metadata: Metadata = {
-  title: "Manu Palop | Pérdida de peso",
+  title: "Manu Palop | Recupera el control de tu cuerpo y tu vida",
   description:
-    "Perdí 60 kg y ahora acompaño a otras personas a lograrlo. Únete al Club VIP.",
+    "Desarrollo personal a través del cuerpo y la mente. Bajé 60 kg y hoy te acompaño con salud, mentalidad, hábitos y respiración consciente. Tu cuerpo es el comienzo. Tu transformación es el destino.",
+  keywords: [
+    "salud",
+    "mentalidad",
+    "hábitos",
+    "respiración consciente",
+    "desarrollo personal",
+    "acompañamiento personal",
+    "pérdida de peso",
+    "Manu Palop",
+  ],
 };
 
 export default function Home() {

@@ -5,11 +5,11 @@ import { btn, CARD, LEAD, SECTION } from "@/lib/site-ui";
 import { cn } from "@/lib/utils";
 
 const INCLUYE = [
-  "Plan de pérdida de peso personalizado",
-  "Respiraciones conscientes para bajar de peso",
+  "Plan de entrenamiento y nutrición",
+  "Respiraciones conscientes para abandonar tus malos hábitos",
   "Seguimiento y revisión periódica de tu progreso",
   "Acompañamiento directo por WhatsApp",
-  "Comunidad privada con otras personas en el mismo proceso",
+  "Comunidad privada para apoyarnos",
   "Contenido y directos exclusivos para miembros",
 ];
 
@@ -29,8 +29,13 @@ export default function ClubVipSection() {
             alguien que haya recorrido este camino antes.
           </p>
           <p className="m-0">
-            Mi club VIP es un espacio donde trabajamos juntos el método, la
-            mentalidad y los hábitos hasta que ya no me necesites.
+            El Club VIP es un espacio en el que trabajamos juntos en tu
+            transformación física y personal.
+          </p>
+          <p className="m-0">
+            No se trata solamente de perder peso, sino de construir una forma de
+            vivir que te permita sentirte mejor contigo mismo y mantener tus
+            resultados.
           </p>
         </div>
         <ul className="mx-0 mt-6 mb-8 inline-grid list-none gap-3 p-0 text-left desktop:mx-auto">
